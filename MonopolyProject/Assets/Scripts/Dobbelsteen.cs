@@ -8,6 +8,7 @@ public class Dobbelsteen : MonoBehaviour
     int dice2 = 0;
     int totalOnDice = 0;
     bool dubbel = false;
+    bool dubbel1 = false;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class Dobbelsteen : MonoBehaviour
         dice2 = 0;
         totalOnDice = 0;
         dubbel = false;
+        dubbel1 = false;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -37,12 +39,18 @@ public class Dobbelsteen : MonoBehaviour
                 dubbel = true;
             }
 
+            if (dice1==1 && dice2==1)
+            {
+                dubbel1 = true;
+            }
+
             totalOnDice = dice1 + dice2;
             Debug.Log("---------------------------------------------------------------");
             Debug.Log("Dice 1 was: " + dice1);
             Debug.Log("Dice 2 was: " + dice2);
             Debug.Log("Total on dice is: " + totalOnDice);
             Debug.Log("Is it a dubbel: " + dubbel);
+            Debug.Log("Is it a dubbel 1: " + dubbel1);
         }
     }
 }
