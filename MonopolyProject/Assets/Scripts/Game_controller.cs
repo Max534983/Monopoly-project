@@ -36,59 +36,59 @@ public class Game_controller : MonoBehaviour
         {
             if (huidige_speler == 0)
             {
-                textPlayer_1.color = Color.red;
+                textPlayer_1.color = Color.green;
                 
-                textPlayer_2.color = Color.green;
-                textPlayer_3.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_6.color = Color.green;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_6.color = Color.red;
 
             } else if (huidige_speler == 1) 
             {
-                textPlayer_2.color = Color.red;
+                textPlayer_2.color = Color.green;
 
-                textPlayer_1.color = Color.green;
-                textPlayer_3.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_5.color = Color.green;
-                textPlayer_6.color = Color.green;
+                textPlayer_1.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
             } else if (huidige_speler == 2)
             {
-                textPlayer_3.color = Color.red;
+                textPlayer_3.color = Color.green;
 
-                textPlayer_1.color = Color.green;
-                textPlayer_2.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_5.color = Color.green;
-                textPlayer_6.color = Color.green;
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
             } else if (huidige_speler == 3)
             {
-                textPlayer_4.color = Color.red;
+                textPlayer_4.color = Color.green;
 
-                textPlayer_1.color = Color.green;
-                textPlayer_2.color = Color.green;
-                textPlayer_3.color = Color.green;
-                textPlayer_5.color = Color.green;
-                textPlayer_6.color = Color.green;
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
             } else if (huidige_speler == 4)
             {
-                textPlayer_5.color = Color.red;
+                textPlayer_5.color = Color.green;
 
-                textPlayer_1.color = Color.green;
-                textPlayer_2.color = Color.green;
-                textPlayer_3.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_6.color = Color.green;
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_6.color = Color.red;
             } else if (huidige_speler == 5)
             {
-                textPlayer_6.color = Color.red;
+                textPlayer_6.color = Color.green;
 
-                textPlayer_1.color = Color.green;
-                textPlayer_2.color = Color.green;
-                textPlayer_3.color = Color.green;
-                textPlayer_4.color = Color.green;
-                textPlayer_5.color = Color.green;
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
             }
 
             huidige_speler++;
@@ -106,18 +106,18 @@ public class Game_controller : MonoBehaviour
         textPlayer_1.color = Color.red;
 
         textPlayer_2.text = playerNames[1];
-        textPlayer_2.color = Color.green;
+        textPlayer_2.color = Color.red;
 
         textPlayer_3.text = playerNames[2];
-        textPlayer_3.color = Color.green;
+        textPlayer_3.color = Color.red;
 
         textPlayer_4.text = playerNames[3];
-        textPlayer_4.color = Color.green;
+        textPlayer_4.color = Color.red;
 
         textPlayer_5.text = playerNames[4];
-        textPlayer_5.color = Color.green;
+        textPlayer_5.color = Color.red;
 
         textPlayer_6.text = playerNames[5];
-        textPlayer_6.color = Color.green;
+        textPlayer_6.color = Color.red;
     }
 }
