@@ -25,6 +25,9 @@ public class Game_controller : MonoBehaviour
     public Text textThrew_6;
     public Text ErrorBox;
 
+    public Animator dobbolsteen1_animation;
+    public Animator dobbolsteen2_animation;
+
     int huidige_speler = 0;
 
     bool firstThrow = true;
@@ -45,7 +48,7 @@ public class Game_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(firstThrowValue[0]);
+        
     }
 
     public void playerTurn() 
@@ -84,7 +87,7 @@ public class Game_controller : MonoBehaviour
         }
         else if (huidige_speler == 1)
         {
-            textPlayer_2.color = Color.green;
+            textPlayer_2.color = Color.red;
 
             textPlayer_1.color = Color.green;
             textPlayer_3.color = Color.green;
@@ -95,67 +98,13 @@ public class Game_controller : MonoBehaviour
         else if (huidige_speler == 2)
         {
             textPlayer_3.color = Color.red;
-            if (huidige_speler == 0)
-            {
-                textPlayer_1.color = Color.green;
 
-                textPlayer_2.color = Color.red;
-                textPlayer_3.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_6.color = Color.red;
-
-            } else if (huidige_speler == 1)
-            {
-                textPlayer_2.color = Color.green;
-
-                textPlayer_1.color = Color.red;
-                textPlayer_3.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_5.color = Color.red;
-                textPlayer_6.color = Color.red;
-            } else if (huidige_speler == 2)
-            {
-                textPlayer_3.color = Color.green;
-
-                textPlayer_1.color = Color.red;
-                textPlayer_2.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_5.color = Color.red;
-                textPlayer_6.color = Color.red;
-            } else if (huidige_speler == 3)
-            {
-                textPlayer_4.color = Color.green;
-
-                textPlayer_1.color = Color.red;
-                textPlayer_2.color = Color.red;
-                textPlayer_3.color = Color.red;
-                textPlayer_5.color = Color.red;
-                textPlayer_6.color = Color.red;
-            } else if (huidige_speler == 4)
-            {
-                textPlayer_5.color = Color.green;
-
-                textPlayer_1.color = Color.red;
-                textPlayer_2.color = Color.red;
-                textPlayer_3.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_6.color = Color.red;
-            } else if (huidige_speler == 5)
-            {
-                textPlayer_6.color = Color.green;
-
-                textPlayer_1.color = Color.red;
-                textPlayer_2.color = Color.red;
-                textPlayer_3.color = Color.red;
-                textPlayer_4.color = Color.red;
-                textPlayer_5.color = Color.red;
-            }
             textPlayer_1.color = Color.green;
             textPlayer_2.color = Color.green;
             textPlayer_4.color = Color.green;
             textPlayer_5.color = Color.green;
             textPlayer_6.color = Color.green;
+
         }
         else if (huidige_speler == 3)
         {
@@ -227,6 +176,10 @@ public class Game_controller : MonoBehaviour
         {
             firstThrow = false;
         }
+
+        dobbolsteen1_animation.SetInteger("Dice", dice1);
+        dobbolsteen2_animation.SetInteger("Dice", dice2);
+
         Debug.Log("Total on dice is: " + totalOnDice);
         showNumberThrown();
     }
