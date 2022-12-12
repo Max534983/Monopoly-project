@@ -54,12 +54,12 @@ public class Game_controller : MonoBehaviour
         {
             huidige_speler++;
         }
-        else 
+        else
         {
             currentError = "throwDice";
             error("throwDice");
         }
-       
+
 
         if (huidige_speler == 6)
         {
@@ -67,7 +67,7 @@ public class Game_controller : MonoBehaviour
         }
 
         switchPlayerUIColor();
-        
+
     }
 
     public void switchPlayerUIColor() 
@@ -84,7 +84,7 @@ public class Game_controller : MonoBehaviour
         }
         else if (huidige_speler == 1)
         {
-            textPlayer_2.color = Color.red;
+            textPlayer_2.color = Color.green;
 
             textPlayer_1.color = Color.green;
             textPlayer_3.color = Color.green;
@@ -95,7 +95,62 @@ public class Game_controller : MonoBehaviour
         else if (huidige_speler == 2)
         {
             textPlayer_3.color = Color.red;
+            if (huidige_speler == 0)
+            {
+                textPlayer_1.color = Color.green;
 
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_6.color = Color.red;
+
+            } else if (huidige_speler == 1)
+            {
+                textPlayer_2.color = Color.green;
+
+                textPlayer_1.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
+            } else if (huidige_speler == 2)
+            {
+                textPlayer_3.color = Color.green;
+
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
+            } else if (huidige_speler == 3)
+            {
+                textPlayer_4.color = Color.green;
+
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_5.color = Color.red;
+                textPlayer_6.color = Color.red;
+            } else if (huidige_speler == 4)
+            {
+                textPlayer_5.color = Color.green;
+
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_6.color = Color.red;
+            } else if (huidige_speler == 5)
+            {
+                textPlayer_6.color = Color.green;
+
+                textPlayer_1.color = Color.red;
+                textPlayer_2.color = Color.red;
+                textPlayer_3.color = Color.red;
+                textPlayer_4.color = Color.red;
+                textPlayer_5.color = Color.red;
+            }
             textPlayer_1.color = Color.green;
             textPlayer_2.color = Color.green;
             textPlayer_4.color = Color.green;
@@ -142,7 +197,7 @@ public class Game_controller : MonoBehaviour
         dubbel = false;
         dubbel1 = false;
 
-        if (currentError.Equals("throwDice")) 
+        if (currentError.Equals("throwDice"))
         {
             error("noError");
             currentError = "noError";
@@ -163,12 +218,12 @@ public class Game_controller : MonoBehaviour
 
         totalOnDice = dice1 + dice2;
 
-        if (firstThrow == true) 
+        if (firstThrow == true)
         {
                 firstThrowValue[huidige_speler] = totalOnDice;
         }
 
-        if (firstThrowValue[firstThrowValue.Length - 1] > 0) 
+        if (firstThrowValue[firstThrowValue.Length - 1] > 0)
         {
             firstThrow = false;
         }
@@ -176,7 +231,7 @@ public class Game_controller : MonoBehaviour
         showNumberThrown();
     }
 
-    public void showNumberThrown() 
+    public void showNumberThrown()
     {
         if (huidige_speler == 0)
         {
@@ -205,7 +260,7 @@ public class Game_controller : MonoBehaviour
     }
 
 
-    public void error(string errorType) 
+    public void error(string errorType)
     {
         if (errorType.Equals("throwDice"))
         {
@@ -213,7 +268,7 @@ public class Game_controller : MonoBehaviour
             ErrorBox.text = "You need to throw the dice";
         }
 
-        if (errorType.Equals("noError")) 
+        if (errorType.Equals("noError"))
         {
             ErrorBox.gameObject.SetActive(false);
         }
@@ -225,19 +280,19 @@ public class Game_controller : MonoBehaviour
         textPlayer_1.color = Color.green;
 
         textPlayer_2.text = playerNames[1];
-        textPlayer_2.color = Color.green;
+        textPlayer_2.color = Color.red;
 
         textPlayer_3.text = playerNames[2];
-        textPlayer_3.color = Color.green;
+        textPlayer_3.color = Color.red;
 
         textPlayer_4.text = playerNames[3];
-        textPlayer_4.color = Color.green;
+        textPlayer_4.color = Color.red;
 
         textPlayer_5.text = playerNames[4];
-        textPlayer_5.color = Color.green;
+        textPlayer_5.color = Color.red;
 
         textPlayer_6.text = playerNames[5];
-        textPlayer_6.color = Color.green;
+        textPlayer_6.color = Color.red;
 
         ErrorBox.color = Color.red;
         ErrorBox.gameObject.SetActive(false);
