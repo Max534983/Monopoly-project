@@ -337,6 +337,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106365298}
   m_CullTransparentMesh: 1
+--- !u!1 &160746156
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160746157}
+  m_Layer: 0
+  m_Name: Dobbolstenen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &160746157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160746156}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 930211236}
+  - {fileID: 1223901586}
+  m_Father: {fileID: 846190506}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &301610726
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +382,7 @@ GameObject:
   - component: {fileID: 301610728}
   - component: {fileID: 301610729}
   m_Layer: 5
-  m_Name: Player_2_dice_text
+  m_Name: Player_2_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -417,6 +450,63 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Threw: 0'
+--- !u!1001 &476159570
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 160746157}
+    m_Modifications:
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.021589722
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286486, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_Name
+      value: Dobbelsteen_2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43defda3724934345b6fe352066540e0, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +603,7 @@ GameObject:
   - component: {fileID: 599298902}
   - component: {fileID: 599298903}
   m_Layer: 5
-  m_Name: Player_3_dice_text
+  m_Name: Player_3_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -706,7 +796,7 @@ GameObject:
   - component: {fileID: 784110302}
   - component: {fileID: 784110303}
   m_Layer: 5
-  m_Name: Player_4_dice_text
+  m_Name: Player_4_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,7 +876,7 @@ GameObject:
   - component: {fileID: 825398806}
   - component: {fileID: 825398807}
   m_Layer: 5
-  m_Name: Player_5_dice_text
+  m_Name: Player_5_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,6 +976,7 @@ Transform:
   - {fileID: 1905134003}
   - {fileID: 1891189550}
   - {fileID: 2051306829}
+  - {fileID: 160746157}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -907,13 +998,15 @@ MonoBehaviour:
   textPlayer_4: {fileID: 1731269814}
   textPlayer_5: {fileID: 1141573134}
   textPlayer_6: {fileID: 1789334674}
-  textThrew_1: {fileID: 886931710}
-  textThrew_2: {fileID: 301610729}
-  textThrew_3: {fileID: 599298903}
-  textThrew_4: {fileID: 784110303}
-  textThrew_5: {fileID: 825398807}
-  textThrew_6: {fileID: 1912107287}
+  textLower_1: {fileID: 886931710}
+  textLower_2: {fileID: 301610729}
+  textLower_3: {fileID: 599298903}
+  textLower_4: {fileID: 784110303}
+  textLower_5: {fileID: 825398807}
+  textLower_6: {fileID: 1912107287}
   ErrorBox: {fileID: 854192519}
+  dobbolsteen1_animation: {fileID: 930211237}
+  dobbolsteen2_animation: {fileID: 1223901587}
 --- !u!1 &854192518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1233,7 @@ GameObject:
   - component: {fileID: 886931709}
   - component: {fileID: 886931710}
   m_Layer: 5
-  m_Name: Player_1_dice_text
+  m_Name: Player_1_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1208,6 +1301,16 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Threw: 0'
+--- !u!4 &930211236 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+  m_PrefabInstance: {fileID: 8210825666038808500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &930211237 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8210825666956286481, guid: 43defda3724934345b6fe352066540e0, type: 3}
+  m_PrefabInstance: {fileID: 8210825666038808500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1141573132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,6 +1391,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1141573132}
   m_CullTransparentMesh: 1
+--- !u!4 &1223901586 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+  m_PrefabInstance: {fileID: 476159570}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1223901587 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8210825666956286481, guid: 43defda3724934345b6fe352066540e0, type: 3}
+  m_PrefabInstance: {fileID: 476159570}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1318323619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,7 +2839,7 @@ GameObject:
   - component: {fileID: 1912107286}
   - component: {fileID: 1912107287}
   m_Layer: 5
-  m_Name: Player_6_dice_text
+  m_Name: Player_6_Lower_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2952,3 +3065,60 @@ Transform:
   m_Father: {fileID: 846190506}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1001 &8210825666038808500
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 160746157}
+    m_Modifications:
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.021589722
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286480, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210825666956286486, guid: 43defda3724934345b6fe352066540e0, type: 3}
+      propertyPath: m_Name
+      value: Dobbelsteen_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43defda3724934345b6fe352066540e0, type: 3}
