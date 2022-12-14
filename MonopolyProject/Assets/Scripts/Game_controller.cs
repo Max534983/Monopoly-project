@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Game_controller : MonoBehaviour
 {
-    string[] playerNames = new string[] { "speler_1", "speler_2", "speler_3", "speler_4", "speler_5", "speler_6" };
+    string[] playerNames = new string[] { "player1", "player2", "player3", "player4", "player5", "player6" };
     int[] firstThrowValue = new int[] {0,0,0,0,0,0};
 
     public Text textPlayer_1;
@@ -25,18 +25,18 @@ public class Game_controller : MonoBehaviour
     public Text textLower_6;
     public Text ErrorBox;
 
-    public Animator dobbolsteen1_animation;
-    public Animator dobbolsteen2_animation;
+    public Animator dice1_animation;
+    public Animator dice2_animation;
 
-    int huidige_speler = 0;
+    int currentPlayer = 0;
 
     bool firstThrow = true;
     bool diceThrown = false;
     int dice1 = 0;
     int dice2 = 0;
     int totalOnDice = 0;
-    bool dubbel = false;
-    bool dubbel1 = false;
+    bool dice = false;
+    bool dice1 = false;
 
     String currentError = "noError";
 
@@ -54,9 +54,9 @@ public class Game_controller : MonoBehaviour
 
     public void playerTurn() 
     {
-        if (firstThrowValue[huidige_speler] != 0 || (firstThrow == false && diceThrown == true && dubbel == false))
+        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && dice == false))
         {
-            huidige_speler++;
+            currentPlayer++;
             diceThrown = false;
         }
         else
@@ -66,9 +66,9 @@ public class Game_controller : MonoBehaviour
         }
 
 
-        if (huidige_speler == 6)
+        if (currentPlayer == 6)
         {
-            huidige_speler = 0;
+            currentPlayer = 0;
         }
 
         switchPlayerUIColor();
@@ -77,70 +77,70 @@ public class Game_controller : MonoBehaviour
 
     public void switchPlayerUIColor() 
     {
-        if (huidige_speler == 0)
+        if (currentPlayer == 0)
         {
-            textPlayer_1.color = Color.red;
+            textPlayer_1.color = Color.green;
 
-            textPlayer_2.color = Color.green;
-            textPlayer_3.color = Color.green;
-            textPlayer_4.color = Color.green;
-            textPlayer_4.color = Color.green;
-            textPlayer_6.color = Color.green;
-        }
-        else if (huidige_speler == 1)
-        {
             textPlayer_2.color = Color.red;
-
-            textPlayer_1.color = Color.green;
-            textPlayer_3.color = Color.green;
-            textPlayer_4.color = Color.green;
-            textPlayer_5.color = Color.green;
-            textPlayer_6.color = Color.green;
-        }
-        else if (huidige_speler == 2)
-        {
             textPlayer_3.color = Color.red;
-
-            textPlayer_1.color = Color.green;
-            textPlayer_2.color = Color.green;
-            textPlayer_4.color = Color.green;
-            textPlayer_5.color = Color.green;
-            textPlayer_6.color = Color.green;
-
-        }
-        else if (huidige_speler == 3)
-        {
             textPlayer_4.color = Color.red;
-
-            textPlayer_1.color = Color.green;
-            textPlayer_2.color = Color.green;
-            textPlayer_3.color = Color.green;
-            textPlayer_5.color = Color.green;
-            textPlayer_6.color = Color.green;
+            textPlayer_4.color = Color.red;
+            textPlayer_6.color = Color.red;
         }
-        else if (huidige_speler == 4)
+        else if (currentPlayer == 1)
         {
+            textPlayer_2.color = Color.green;
+
+            textPlayer_1.color = Color.red;
+            textPlayer_3.color = Color.red;
+            textPlayer_4.color = Color.red;
             textPlayer_5.color = Color.red;
-
-            textPlayer_1.color = Color.green;
-            textPlayer_2.color = Color.green;
-            textPlayer_3.color = Color.green;
-            textPlayer_4.color = Color.green;
-            textPlayer_6.color = Color.green;
+            textPlayer_6.color = Color.red;
         }
-        else if (huidige_speler == 5)
+        else if (currentPlayer == 2)
         {
+            textPlayer_3.color = Color.green;
+
+            textPlayer_1.color = Color.red;
+            textPlayer_2.color = Color.red;
+            textPlayer_4.color = Color.red;
+            textPlayer_5.color = Color.red;
             textPlayer_6.color = Color.red;
 
-            textPlayer_1.color = Color.green;
-            textPlayer_2.color = Color.green;
-            textPlayer_3.color = Color.green;
+        }
+        else if (currentPlayer == 3)
+        {
             textPlayer_4.color = Color.green;
+
+            textPlayer_1.color = Color.red;
+            textPlayer_2.color = Color.red;
+            textPlayer_3.color = Color.red;
+            textPlayer_5.color = Color.red;
+            textPlayer_6.color = Color.red;
+        }
+        else if (currentPlayer == 4)
+        {
             textPlayer_5.color = Color.green;
+
+            textPlayer_1.color = Color.red;
+            textPlayer_2.color = Color.red;
+            textPlayer_3.color = Color.red;
+            textPlayer_4.color = Color.red;
+            textPlayer_6.color = Color.red;
+        }
+        else if (currentPlayer == 5)
+        {
+            textPlayer_6.color = Color.green;
+
+            textPlayer_1.color = Color.red;
+            textPlayer_2.color = Color.red;
+            textPlayer_3.color = Color.red;
+            textPlayer_4.color = Color.red;
+            textPlayer_5.color = Color.red;
         }
     }
 
-    //De logica voor een dobbolsteen gooien en firstThrow
+    //De logica voor een dobbelsteen gooien en firstThrow
     public void throwDice()
     {
         if (diceThrown == false || firstThrow)
@@ -148,8 +148,8 @@ public class Game_controller : MonoBehaviour
             dice1 = 0;
             dice2 = 0;
             totalOnDice = 0;
-            dubbel = false;
-            dubbel1 = false;
+            dice = false;
+            dice1 = false;
 
             diceThrown = true;
 
@@ -164,20 +164,20 @@ public class Game_controller : MonoBehaviour
 
             if (dice1 == dice2)
             {
-                dubbel = true;
+                dice = true;
                 diceThrown = false;
             }
 
             if (dice1 == 1 && dice2 == 1)
             {
-                dubbel1 = true;
+                dice1 = true;
             }
 
             totalOnDice = dice1 + dice2;
 
             if (firstThrow == true)
             {
-                firstThrowValue[huidige_speler] = totalOnDice;
+                firstThrowValue[currentPlayer] = totalOnDice;
                 showFirstNumberThrown();
                 playerTurn();
             }
@@ -189,34 +189,34 @@ public class Game_controller : MonoBehaviour
                 Debug.Log("first throw is klaar");
             }
 
-            dobbolsteen1_animation.SetInteger("Dice", dice1);
-            dobbolsteen2_animation.SetInteger("Dice", dice2);
+            dice1_animation.SetInteger("Dice", dice1);
+            dice2_animation.SetInteger("Dice", dice2);
         }
     }
 
     public void showFirstNumberThrown()
     {
-        if (huidige_speler == 0)
+        if (currentPlayer == 0)
         {
             textLower_1.text = "Threw: " + totalOnDice;
         }
-        else if (huidige_speler == 1)
+        else if (currentPlayer == 1)
         {
             textLower_2.text = "Threw: " + totalOnDice;
         }
-        else if (huidige_speler == 2)
+        else if (currentPlayer == 2)
         {
             textLower_3.text = "Threw: " + totalOnDice;
         }
-        else if (huidige_speler == 3)
+        else if (currentPlayer == 3)
         {
             textLower_4.text = "Threw: " + totalOnDice;
         }
-        else if (huidige_speler == 4)
+        else if (currentPlayer == 4)
         {
             textLower_5.text = "Threw: " + totalOnDice;
         }
-        else if (huidige_speler == 5)
+        else if (currentPlayer == 5)
         {
             textLower_6.text = "Threw: " + totalOnDice;
         }
@@ -244,18 +244,18 @@ public class Game_controller : MonoBehaviour
         //Kijk wie er het hoogste gooide
         for (int i = 0; i < playerNames.Length; i++)
         {
-            int spelerMetHoogsteNummer = 0;
-            int hoogesteNummer = 0;
+            int playerWithHighestThrow = 0;
+            int highestNumber = 0;
             for (int y = 0; y < playerNames.Length; y++) 
             {
-                if (firstThrowValue[y] > hoogesteNummer)
+                if (firstThrowValue[y] > highestNumber)
                 {
-                    spelerMetHoogsteNummer = y;
-                    hoogesteNummer = firstThrowValue[y];
+                    playerWithHighestThrow = y;
+                    highestNumber = firstThrowValue[y];
                 }
             }
-            firstThrowValue[spelerMetHoogsteNummer] = 0;
-            playerNamesUpdate[i] = playerNames[spelerMetHoogsteNummer];
+            firstThrowValue[playerWithHighestThrow] = 0;
+            playerNamesUpdate[i] = playerNames[playerWithHighestThrow];
             Debug.Log(playerNamesUpdate[i]);
         }
 
@@ -274,22 +274,22 @@ public class Game_controller : MonoBehaviour
     public void gameStartUi() 
     {   
         textPlayer_1.text = playerNames[0];
-        textPlayer_1.color = Color.red;
+        textPlayer_1.color = Color.green;
 
         textPlayer_2.text = playerNames[1];
-        textPlayer_2.color = Color.green;
+        textPlayer_2.color = Color.red;
 
         textPlayer_3.text = playerNames[2];
-        textPlayer_3.color = Color.green;
+        textPlayer_3.color = Color.red;
 
         textPlayer_4.text = playerNames[3];
-        textPlayer_4.color = Color.green;
+        textPlayer_4.color = Color.red;
 
         textPlayer_5.text = playerNames[4];
-        textPlayer_5.color = Color.green;
+        textPlayer_5.color = Color.red;
 
         textPlayer_6.text = playerNames[5];
-        textPlayer_6.color = Color.green;
+        textPlayer_6.color = Color.red;
 
         ErrorBox.color = Color.red;
         ErrorBox.gameObject.SetActive(false);
