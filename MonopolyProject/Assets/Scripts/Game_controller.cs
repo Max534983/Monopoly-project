@@ -35,8 +35,8 @@ public class Game_controller : MonoBehaviour
     int dice1 = 0;
     int dice2 = 0;
     int totalOnDice = 0;
-    bool dice = false;
-    bool dice1 = false;
+    bool doubleDice = false;
+    bool doubleDice1 = false;
 
     String currentError = "noError";
 
@@ -148,8 +148,8 @@ public class Game_controller : MonoBehaviour
             dice1 = 0;
             dice2 = 0;
             totalOnDice = 0;
-            dice = false;
-            dice1 = false;
+            doubleDice = false;
+            doubleDice1 = false;
 
             diceThrown = true;
 
@@ -164,13 +164,13 @@ public class Game_controller : MonoBehaviour
 
             if (dice1 == dice2)
             {
-                dice = true;
+                doubleDice = true;
                 diceThrown = false;
             }
 
             if (dice1 == 1 && dice2 == 1)
             {
-                dice1 = true;
+                doubleDice1 = true;
             }
 
             totalOnDice = dice1 + dice2;
@@ -297,6 +297,8 @@ public class Game_controller : MonoBehaviour
 
     public void updateMoney() 
     {
+    int money = new money[] {1500, 1500, 1500, 1500, 1500, 1500}
+
         //TODO zorg dat het geld dat spelers hebben op het scherm zichtbaar wordt.
         textLower_1.enabled = false;
         textLower_2.enabled = false;
