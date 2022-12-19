@@ -30,6 +30,13 @@ public class Game_controller : MonoBehaviour
 
     int currentPlayer = 0;
 
+    public Transform player_1;
+    public Transform player_2;
+    public Transform player_3;
+    public Transform player_4;
+    public Transform player_5;
+    public Transform player_6;
+
     bool firstThrow = true;
     bool diceThrown = false;
     int dice1 = 0;
@@ -54,7 +61,7 @@ public class Game_controller : MonoBehaviour
 
     public void playerTurn() 
     {
-        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && diceDouble == false))
+        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && doubleDice == false))
         {
             currentPlayer++;
             diceThrown = false;
@@ -304,5 +311,33 @@ public class Game_controller : MonoBehaviour
         textLower_4.enabled = false;
         textLower_5.enabled = false;
         textLower_6.enabled = false;
+    }
+
+    public void movePlayer() 
+    {
+        if (currentPlayer == 0)
+        {
+            
+        }
+        else if (currentPlayer == 1)
+        {
+            
+        }
+        else if (currentPlayer == 2)
+        {
+            
+        }
+        else if (currentPlayer == 3)
+        {
+            
+        }
+        else if (currentPlayer == 4)
+        {
+           
+        }
+        else if (currentPlayer == 5)
+        {
+            
+        }
     }
 }
