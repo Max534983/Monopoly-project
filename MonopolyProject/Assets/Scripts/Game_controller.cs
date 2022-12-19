@@ -8,21 +8,20 @@ using UnityEngine.UI;
 
 public class Game_controller : MonoBehaviour
 {
-    string[] playerNames = new string[] { "player1", "player2", "player3", "player4", "player5", "player6" };
-    int[] firstThrowValue = new int[] {0,0,0,0,0,0};
+    string[] playerNames = new string[] { "player1", "player2", "player3", "player4" };
+    int[] firstThrowValue = new int[] {0,0,0,0};
+    int[] playerCurrentTilePos = new int[] {0,0,0,0};
+    double bottomRowXCord = -3.325;
+    double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4};
 
     public Text textPlayer_1;
     public Text textPlayer_2;
     public Text textPlayer_3;
     public Text textPlayer_4;
-    public Text textPlayer_5;
-    public Text textPlayer_6;
     public Text textLower_1;
     public Text textLower_2;
     public Text textLower_3;
     public Text textLower_4;
-    public Text textLower_5;
-    public Text textLower_6;
     public Text ErrorBox;
 
     public Animator dice1_animation;
@@ -47,6 +46,8 @@ public class Game_controller : MonoBehaviour
 
     String currentError = "noError";
 
+    public float moveSpeed = 1;
+
     void Start()
     {
         gameStartUi();
@@ -56,7 +57,8 @@ public class Game_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector2 movement = new Vector2(-1, 0);
+        player_1.Translate(movement * moveSpeed * Time.deltaTime);
     }
 
     public void playerTurn() 
@@ -73,7 +75,7 @@ public class Game_controller : MonoBehaviour
         }
 
 
-        if (currentPlayer == 6)
+        if (currentPlayer == 4)
         {
             currentPlayer = 0;
         }
@@ -91,8 +93,6 @@ public class Game_controller : MonoBehaviour
             textPlayer_2.color = Color.red;
             textPlayer_3.color = Color.red;
             textPlayer_4.color = Color.red;
-            textPlayer_4.color = Color.red;
-            textPlayer_6.color = Color.red;
         }
         else if (currentPlayer == 1)
         {
@@ -101,8 +101,6 @@ public class Game_controller : MonoBehaviour
             textPlayer_1.color = Color.red;
             textPlayer_3.color = Color.red;
             textPlayer_4.color = Color.red;
-            textPlayer_5.color = Color.red;
-            textPlayer_6.color = Color.red;
         }
         else if (currentPlayer == 2)
         {
@@ -111,8 +109,6 @@ public class Game_controller : MonoBehaviour
             textPlayer_1.color = Color.red;
             textPlayer_2.color = Color.red;
             textPlayer_4.color = Color.red;
-            textPlayer_5.color = Color.red;
-            textPlayer_6.color = Color.red;
 
         }
         else if (currentPlayer == 3)
@@ -122,28 +118,6 @@ public class Game_controller : MonoBehaviour
             textPlayer_1.color = Color.red;
             textPlayer_2.color = Color.red;
             textPlayer_3.color = Color.red;
-            textPlayer_5.color = Color.red;
-            textPlayer_6.color = Color.red;
-        }
-        else if (currentPlayer == 4)
-        {
-            textPlayer_5.color = Color.green;
-
-            textPlayer_1.color = Color.red;
-            textPlayer_2.color = Color.red;
-            textPlayer_3.color = Color.red;
-            textPlayer_4.color = Color.red;
-            textPlayer_6.color = Color.red;
-        }
-        else if (currentPlayer == 5)
-        {
-            textPlayer_6.color = Color.green;
-
-            textPlayer_1.color = Color.red;
-            textPlayer_2.color = Color.red;
-            textPlayer_3.color = Color.red;
-            textPlayer_4.color = Color.red;
-            textPlayer_5.color = Color.red;
         }
     }
 
@@ -219,14 +193,6 @@ public class Game_controller : MonoBehaviour
         {
             textLower_4.text = "Threw: " + totalOnDice;
         }
-        else if (currentPlayer == 4)
-        {
-            textLower_5.text = "Threw: " + totalOnDice;
-        }
-        else if (currentPlayer == 5)
-        {
-            textLower_6.text = "Threw: " + totalOnDice;
-        }
     }
 
     //hier staan alle soorten error's die op het scherm mogen verschijnen
@@ -292,12 +258,6 @@ public class Game_controller : MonoBehaviour
         textPlayer_4.text = playerNames[3];
         textPlayer_4.color = Color.red;
 
-        textPlayer_5.text = playerNames[4];
-        textPlayer_5.color = Color.red;
-
-        textPlayer_6.text = playerNames[5];
-        textPlayer_6.color = Color.red;
-
         ErrorBox.color = Color.red;
         ErrorBox.gameObject.SetActive(false);
     }
@@ -309,8 +269,6 @@ public class Game_controller : MonoBehaviour
         textLower_2.enabled = false;
         textLower_3.enabled = false;
         textLower_4.enabled = false;
-        textLower_5.enabled = false;
-        textLower_6.enabled = false;
     }
 
     public void movePlayer() 
@@ -328,14 +286,6 @@ public class Game_controller : MonoBehaviour
             
         }
         else if (currentPlayer == 3)
-        {
-            
-        }
-        else if (currentPlayer == 4)
-        {
-           
-        }
-        else if (currentPlayer == 5)
         {
             
         }
