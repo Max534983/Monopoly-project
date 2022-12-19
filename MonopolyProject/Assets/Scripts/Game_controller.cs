@@ -297,8 +297,6 @@ public class Game_controller : MonoBehaviour
 
     public void updateMoney() 
     {
-    int money = new money[] {1500, 1500, 1500, 1500, 1500, 1500}
-
         //TODO zorg dat het geld dat spelers hebben op het scherm zichtbaar wordt.
         textLower_1.enabled = false;
         textLower_2.enabled = false;
