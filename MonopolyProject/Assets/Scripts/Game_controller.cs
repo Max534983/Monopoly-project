@@ -54,7 +54,7 @@ public class Game_controller : MonoBehaviour
 
     public void playerTurn() 
     {
-        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && dice == false))
+        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && diceDouble == false))
         {
             currentPlayer++;
             diceThrown = false;
