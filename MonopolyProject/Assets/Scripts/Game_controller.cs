@@ -35,8 +35,8 @@ public class Game_controller : MonoBehaviour
     int dice1 = 0;
     int dice2 = 0;
     int totalOnDice = 0;
-    bool diceDouble = false;
-    bool dice1Double = false;
+    bool doubleDice = false;
+    bool doubleDice1 = false;
 
     String currentError = "noError";
 
@@ -148,8 +148,8 @@ public class Game_controller : MonoBehaviour
             dice1 = 0;
             dice2 = 0;
             totalOnDice = 0;
-            diceDouble = false;
-            dice1Double = false;
+            doubleDice = false;
+            doubleDice1 = false;
 
             diceThrown = true;
 
@@ -164,13 +164,13 @@ public class Game_controller : MonoBehaviour
 
             if (dice1 == dice2)
             {
-                diceDouble = true;
+                doubleDice = true;
                 diceThrown = false;
             }
 
             if (dice1 == 1 && dice2 == 1)
             {
-                dice1Double = true;
+                doubleDice1 = true;
             }
 
             totalOnDice = dice1 + dice2;
