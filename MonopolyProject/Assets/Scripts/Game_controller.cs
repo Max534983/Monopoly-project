@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class Game_controller : MonoBehaviour
 {
-    string[] playerNames = new string[] { "player1", "player2", "player3", "player4" };
+    string[] playerNames = new string[] {"Player_1", "Player_2", "Player_3", "Player_4" };
+    int[] playerLineUp = new int[] { 1, 2, 3, 4 };
     int[] firstThrowValue = new int[] {0,0,0,0};
     int[] playerCurrentTilePos = new int[] {0,0,0,0};
+
     double bottomRowXCord = -3.325;
     double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4};
 
@@ -33,8 +35,6 @@ public class Game_controller : MonoBehaviour
     public Transform player_2;
     public Transform player_3;
     public Transform player_4;
-    public Transform player_5;
-    public Transform player_6;
 
     bool firstThrow = true;
     bool diceThrown = false;
@@ -47,9 +47,11 @@ public class Game_controller : MonoBehaviour
     String currentError = "noError";
 
     public float moveSpeed = 1;
+    bool moving = false;
 
     void Start()
     {
+        fillPlayerNames();
         gameStartUi();
         switchPlayerUIColor();
     }
@@ -57,8 +59,27 @@ public class Game_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 movement = new Vector2(-1, 0);
-        player_1.Translate(movement * moveSpeed * Time.deltaTime);
+        
+    }
+
+    public void fillPlayerNames() 
+    {
+       if (PlayerNames.Player1 != null) 
+       {
+            playerNames[0] = PlayerNames.Player1;
+       }
+       if (PlayerNames.Player2 != null)
+       {
+            playerNames[1] = PlayerNames.Player2;
+       }
+       if (PlayerNames.Player3 != null)
+       {
+             playerNames[2] = PlayerNames.Player4;
+       }
+       if (PlayerNames.Player4 != null)
+       {
+            playerNames[3] = PlayerNames.Player4;
+       }
     }
 
     public void playerTurn() 
@@ -170,6 +191,11 @@ public class Game_controller : MonoBehaviour
                 Debug.Log("first throw is klaar");
             }
 
+            if (!firstThrow) 
+            {
+                movePlayer();
+            }
+
             dice1_animation.SetInteger("Dice", dice1);
             dice2_animation.SetInteger("Dice", dice2);
         }
@@ -212,7 +238,8 @@ public class Game_controller : MonoBehaviour
 
     public void endFirstThrow() 
     {
-        string[] playerNamesUpdate = new string[] { "", "", "", "", "", "" };
+        string[] playerNamesUpdate = new string[] { "", "", "", "" };
+        int[] newPlayerLineup = new int[] { 0, 0, 0, 0 };
 
         //Kijk wie er het hoogste gooide
         for (int i = 0; i < playerNames.Length; i++)
@@ -228,14 +255,16 @@ public class Game_controller : MonoBehaviour
                 }
             }
             firstThrowValue[playerWithHighestThrow] = 0;
+            newPlayerLineup[i] = playerWithHighestThrow;
             playerNamesUpdate[i] = playerNames[playerWithHighestThrow];
-            Debug.Log(playerNamesUpdate[i]);
+            Debug.Log(newPlayerLineup[i]);
         }
 
         //verander de namen. laat de mensen die het hoogst gooien op volgorde gaan.
         for (int i = 0; i < playerNames.Length; i++)
         {
             playerNames[i] = playerNamesUpdate[i];
+            playerLineUp[i] = newPlayerLineup[i];
         }
 
         diceThrown = false;
@@ -271,23 +300,34 @@ public class Game_controller : MonoBehaviour
         textLower_4.enabled = false;
     }
 
-    public void movePlayer() 
+    public void movePlayer()
     {
-        if (currentPlayer == 0)
+        playerCurrentTilePos[currentPlayer] = totalOnDice;
+        if (playerLineUp[currentPlayer] == 0)
         {
-            
+            moving = true;
+            startPlayerMove(player_1);
         }
-        else if (currentPlayer == 1)
+        else if (playerLineUp[currentPlayer] == 1)
         {
-            
+            moving = true;
+            startPlayerMove(player_2);
         }
-        else if (currentPlayer == 2)
+        else if (playerLineUp[currentPlayer] == 2)
         {
-            
+            moving = true;
+            startPlayerMove(player_3);
         }
-        else if (currentPlayer == 3)
+        else if (playerLineUp[currentPlayer] == 3)
         {
-            
+            moving = true;
+            startPlayerMove(player_4);
         }
+    }
+
+    public void startPlayerMove(Transform player)
+    {
+        player.position = new Vector2(-(float)bottomRowYCord[playerCurrentTilePos[currentPlayer]], (float)bottomRowXCord);
+        moving = false;
     }
 }
