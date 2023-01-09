@@ -74,7 +74,7 @@ public class Game_controller : MonoBehaviour
        }
        if (PlayerNames.Player3 != null)
        {
-             playerNames[2] = PlayerNames.Player4;
+             playerNames[2] = PlayerNames.Player3;
        }
        if (PlayerNames.Player4 != null)
        {
