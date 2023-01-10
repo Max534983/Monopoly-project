@@ -13,8 +13,15 @@ public class Game_controller : MonoBehaviour
     int[] firstThrowValue = new int[] {0,0,0,0};
     int[] playerCurrentTilePos = new int[] {0,0,0,0};
 
-    double bottomRowXCord = -3.325;
-    double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4};
+    double bottomRowXCord = -3.3;
+    double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4,3.15};
+    double leftRowYCord = 3.3;
+    double[] leftRowXCord = new double[] { 2.4, 1.8, 1.2, 0.6, 0.0, -0.6, -1.2, -1.8, -2.4, -3.15 };
+    double topRowXcord = 3.3;
+    double[] topRowYcord = new double[] { 2.4, 1.8, 1.2, 0.6, 0.0, -0.6, -1.2, -1.8, -2.4, -3.15 };
+    double rightRowXcord = -3.3;
+    double[] rightRowYCord = new double[] { -2.4, -1.8, -1.2, -0.6, 0.0, 0.6, 1.2, 1.8, 2.4, 3.15 };
+
 
     public Text textPlayer_1;
     public Text textPlayer_2;
@@ -184,16 +191,16 @@ public class Game_controller : MonoBehaviour
                 playerTurn();
             }
 
+            if (!firstThrow)
+            {
+                movePlayer();
+            }
+
             if (firstThrowValue[firstThrowValue.Length - 1] > 0 && firstThrow == true)
             {
                 firstThrow = false;
                 endFirstThrow();
                 Debug.Log("first throw is klaar");
-            }
-
-            if (!firstThrow) 
-            {
-                movePlayer();
             }
 
             dice1_animation.SetInteger("Dice", dice1);
@@ -302,7 +309,7 @@ public class Game_controller : MonoBehaviour
 
     public void movePlayer()
     {
-        playerCurrentTilePos[currentPlayer] = totalOnDice;
+        playerCurrentTilePos[currentPlayer] = playerCurrentTilePos[currentPlayer] + totalOnDice;
         if (playerLineUp[currentPlayer] == 0)
         {
             moving = true;
@@ -327,7 +334,36 @@ public class Game_controller : MonoBehaviour
 
     public void startPlayerMove(Transform player)
     {
-        player.position = new Vector2(-(float)bottomRowYCord[playerCurrentTilePos[currentPlayer]], (float)bottomRowXCord);
+        
+
+        if (playerCurrentTilePos[currentPlayer] >= 40)
+        {
+            playerCurrentTilePos[currentPlayer] = playerCurrentTilePos[currentPlayer] - 40;
+        }
+
+        Debug.Log(player + ", pos = " + playerCurrentTilePos[currentPlayer]);
+
+        if (playerCurrentTilePos[currentPlayer] <= 10)
+        {
+            player.position = new Vector2(-(float)bottomRowYCord[playerCurrentTilePos[currentPlayer]], (float)bottomRowXCord);
+        }
+        else if (playerCurrentTilePos[currentPlayer] <= 20)
+        {
+            int leftPos = playerCurrentTilePos[currentPlayer] - 11;
+            player.position = new Vector2(-(float)leftRowYCord, -(float)leftRowXCord[leftPos]);
+        }
+        else if (playerCurrentTilePos[currentPlayer] <= 30)
+        {
+            int topPos = playerCurrentTilePos[currentPlayer] - 21;
+            player.position = new Vector2(-(float)topRowYcord[topPos], (float)topRowXcord);
+        }
+        else if (playerCurrentTilePos[currentPlayer] <= 40)
+        {
+            int rightPos = playerCurrentTilePos[currentPlayer] - 31;
+            player.position = new Vector2(-(float)rightRowXcord, - (float)rightRowYCord[rightPos] );
+        }
+
         moving = false;
     }
 }
+
