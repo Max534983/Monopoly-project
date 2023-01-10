@@ -910,7 +910,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1237634410}
+      - m_Target: {fileID: 1237634411}
         m_TargetAssemblyTypeName: ReadInput, Assembly-CSharp
         m_MethodName: ReadStringInput4
         m_Mode: 0
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1237634410}
+      - m_Target: {fileID: 1237634411}
         m_TargetAssemblyTypeName: ReadInput, Assembly-CSharp
         m_MethodName: ReadStringInput1
         m_Mode: 0
@@ -3483,7 +3483,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1237634410}
+      - m_Target: {fileID: 1237634411}
         m_TargetAssemblyTypeName: ReadInput, Assembly-CSharp
         m_MethodName: ReadStringInput2
         m_Mode: 0
