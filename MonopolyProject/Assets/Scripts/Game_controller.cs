@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Game_controller : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class Game_controller : MonoBehaviour
     int[] playerLineUp = new int[] { 1, 2, 3, 4 };
     int[] firstThrowValue = new int[] {0,0,0,0};
     int[] playerCurrentTilePos = new int[] {0,0,0,0};
+    int[] playerMoney = new int[] { 1500, 1500, 1500, 1500 };
+    int[] propertyOwner = new int[] {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10 };
+    int[] propertyCost = new int[] {60,60,200,100,100,120,150,140,140,160,200,180,180,200,220,220,240,200,260,260,150,260,300,300,320,200,350,400};
 
     double bottomRowXCord = -3.3;
     double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4,3.15};
@@ -56,17 +60,32 @@ public class Game_controller : MonoBehaviour
     public float moveSpeed = 1;
     bool moving = false;
 
+    public GameObject buyMenu;
+    public GameObject buyPanel;
+    public Text buyMenuPriceTag;
+    bool buyingProperty = false;
+    int propertyNumber = 10;
+
+    public GameObject biddingPanel;
+    public Text buyMenuPlayer1;
+    public Text buyMenuPlayer2;
+    public Text buyMenuPlayer3;
+    public Text buyMenuPlayer4;
+    public InputField inputPlayer1;
+    public InputField inputPlayer2;
+    public InputField inputPlayer3;
+    public InputField inputPlayer4;
+    public Text regularValue;
+    int highestBid = 0;
+    int hasHighestBid = 10;
+
+    int turn = 0;
+
     void Start()
     {
         fillPlayerNames();
         gameStartUi();
         switchPlayerUIColor();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void fillPlayerNames() 
@@ -91,21 +110,27 @@ public class Game_controller : MonoBehaviour
 
     public void playerTurn() 
     {
-        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && doubleDice == false))
+        if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && doubleDice == false && buyingProperty == false))
         {
             currentPlayer++;
             diceThrown = false;
         }
-        else
+        else if (diceThrown == false)
         {
             currentError = "throwDice";
             error("throwDice");
+        }
+        else if (buyingProperty == true)
+        {
+            currentError = "decideToBuy";
+            error("decideToBuy");
         }
 
 
         if (currentPlayer == 4)
         {
             currentPlayer = 0;
+            turn = turn + 1;
         }
 
         switchPlayerUIColor();
@@ -237,6 +262,12 @@ public class Game_controller : MonoBehaviour
             ErrorBox.text = "You need to throw the dice";
         }
 
+        if (errorType.Equals("decideToBuy"))
+        {
+            ErrorBox.gameObject.SetActive(true);
+            ErrorBox.text = "You need to decide to buy or not to buy";
+        }
+
         if (errorType.Equals("noError"))
         {
             ErrorBox.gameObject.SetActive(false);
@@ -300,11 +331,10 @@ public class Game_controller : MonoBehaviour
 
     public void updateMoney() 
     {
-        //TODO zorg dat het geld dat spelers hebben op het scherm zichtbaar wordt.
-        textLower_1.enabled = false;
-        textLower_2.enabled = false;
-        textLower_3.enabled = false;
-        textLower_4.enabled = false;
+        textLower_1.text = playerMoney[0].ToString() + " $";
+        textLower_2.text = playerMoney[1].ToString() + " $";
+        textLower_3.text = playerMoney[2].ToString() + " $";
+        textLower_4.text = playerMoney[3].ToString() + " $";
     }
 
     public void movePlayer()
@@ -341,8 +371,6 @@ public class Game_controller : MonoBehaviour
             playerCurrentTilePos[currentPlayer] = playerCurrentTilePos[currentPlayer] - 40;
         }
 
-        Debug.Log(player + ", pos = " + playerCurrentTilePos[currentPlayer]);
-
         if (playerCurrentTilePos[currentPlayer] <= 10)
         {
             player.position = new Vector2(-(float)bottomRowYCord[playerCurrentTilePos[currentPlayer]], (float)bottomRowXCord);
@@ -363,7 +391,226 @@ public class Game_controller : MonoBehaviour
             player.position = new Vector2(-(float)rightRowXcord, - (float)rightRowYCord[rightPos] );
         }
 
+        
+        Debug.Log("after player move pos: "+playerCurrentTilePos[currentPlayer]);
+        checkPosType(playerCurrentTilePos[currentPlayer]);
+
         moving = false;
+    }
+
+    public void checkPosType(int pos) 
+    {
+       
+        int property = 50;
+        if (pos == 1)
+        { 
+            property = 0;
+        }
+        else if (pos == 3) 
+        {
+            property = 1;
+        }
+        else if (pos == 5)
+        {
+            property = 2;
+        }
+        else if (pos == 6)
+        {
+            property = 3;
+        }
+        else if (pos == 8)
+        {
+            property = 4;
+        }
+        else if (pos == 9)
+        {
+            property = 5;
+        }
+        else if (pos == 11)
+        {
+            property = 6;
+        }
+        else if (pos == 12)
+        {
+            property = 7;
+        }
+        else if (pos == 13)
+        {
+            property = 8;
+        }
+        else if (pos == 14)
+        {
+            property = 9;
+        }
+        else if (pos == 15)
+        {
+            property = 10;
+        }
+        else if (pos == 16)
+        {
+            property = 11;
+        }
+        else if (pos == 18)
+        {
+            property = 12;
+        }
+        else if (pos == 19)
+        {
+            property = 13;
+        }
+        else if (pos == 21)
+        {
+            property = 14;
+        }
+        else if (pos == 23)
+        {
+            property = 15;
+        }
+        else if (pos == 24)
+        {
+            property = 16;
+        }
+        else if (pos == 25)
+        {
+            property = 17;
+        }
+        else if (pos == 26)
+        {
+            property = 18;
+        }
+        else if (pos == 27)
+        {
+            property = 19;
+        }
+        else if (pos == 29)
+        {
+            property = 20;
+        }
+        else if (pos == 31)
+        {
+            property = 21;
+        }
+        else if (pos == 32)
+        {
+            property = 22;
+        }
+        else if (pos == 34)
+        {
+            property = 23;
+        }
+        else if (pos == 35)
+        {
+            property = 24;
+        }
+        else if (pos == 37)
+        {
+            property = 25;
+        }
+        else if (pos == 39)
+        {
+            property = 27;
+        }
+
+
+        Debug.Log("position: " + pos.ToString());
+
+        if (property != 50)
+        {
+            if (propertyOwner[property] == 10)
+            {
+                buyMenu.active = true;
+                buyingProperty = true;
+                propertyNumber = property;
+                buyMenuPriceTag.text = "Purchase price: " + propertyCost[property].ToString();
+                regularValue.text = "Regular value: " + propertyCost[property].ToString();
+            }
+            else 
+            {
+                payPropertyOwner(property);
+            }
+        }
+    }
+
+    public void buyProperty()
+    {
+        if (currentError.Equals("decideToBuy"))
+        {
+            error("noError");
+            currentError = "noError";
+        }
+
+        Debug.Log("buys for = " + propertyCost[propertyNumber]);
+        propertyOwner[propertyNumber] = currentPlayer;
+        playerMoney[currentPlayer] = playerMoney[currentPlayer] - propertyCost[propertyNumber];
+        buyingProperty = false;
+        buyMenu.SetActive(false);
+        updateMoney();
+    }
+
+    public void didNotBuyProperty()
+    {
+        buyPanel.SetActive(false);
+        biddingPanel.SetActive(true);
+        inputPlayer1.text = 0.ToString();
+        inputPlayer2.text = 0.ToString();
+        inputPlayer3.text = 0.ToString();
+        inputPlayer4.text = 0.ToString();
+        highestBid = 0;
+        hasHighestBid = 10;
+
+        buyMenuPlayer1.text = playerNames[0];
+        buyMenuPlayer2.text = playerNames[1];
+        buyMenuPlayer3.text = playerNames[2];
+        buyMenuPlayer4.text = playerNames[3];
+    }
+
+    public void endBidding()
+    {
+        buyPanel.SetActive(true);
+        biddingPanel.SetActive(false);
+        buyMenu.SetActive(false);
+
+        Debug.Log(hasHighestBid + " Won and got " + propertyNumber);
+
+        propertyOwner[propertyNumber] = hasHighestBid;
+        playerMoney[hasHighestBid] = playerMoney[hasHighestBid] - highestBid;
+        buyingProperty = false;
+        buyMenu.SetActive(false);
+        updateMoney();
+    }
+
+    public void newBid(int playerNumber)
+    {
+        if (playerNumber == 0 && int.Parse(inputPlayer1.text) > highestBid)
+        {
+            highestBid = int.Parse(inputPlayer1.text);
+            hasHighestBid = 0;
+        }
+
+        if (playerNumber == 1 && int.Parse(inputPlayer2.text) > highestBid)
+        {
+            highestBid = int.Parse(inputPlayer2.text);
+            hasHighestBid = 1;
+        }
+
+        if (playerNumber == 2 && int.Parse(inputPlayer3.text) > highestBid)
+        {
+            highestBid = int.Parse(inputPlayer3.text);
+            hasHighestBid = 2;
+        }
+
+        if (playerNumber == 3 && int.Parse(inputPlayer4.text) > highestBid)
+        {
+            highestBid = int.Parse(inputPlayer4.text);
+            hasHighestBid = 3;
+        }
+
+        Debug.Log("Player " + hasHighestBid + " has highest bid with " + highestBid);
+    }
+
+    public void payPropertyOwner(int property)
+    {
+        Debug.Log(playerNames[currentPlayer] + " pays " + playerNames[propertyOwner[property]]);
     }
 }
 
