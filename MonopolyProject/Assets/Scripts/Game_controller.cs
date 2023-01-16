@@ -330,4 +330,79 @@ public class Game_controller : MonoBehaviour
         player.position = new Vector2(-(float)bottomRowYCord[playerCurrentTilePos[currentPlayer]], (float)bottomRowXCord);
         moving = false;
     }
+
+     void Start()
+        {
+           int[] playerMoney = new int[] {"0", "0", "0", "0" };
+        }
+
+    public void chanceCards(int )
+    int randomChanceCard = UnityEngine.Random.Range(0, 16)
+    {
+        if(randomChanceCard == 0)
+        {
+            playerMoney.(currentPlayer)-200
+
+        }
+
+        else if(randomChanceCard == 1)
+        {
+            playerMoney.(currentPlayer)+200
+        }
+
+        else if(randomChanceCard == 2)
+        {
+            playerMoney.(currentPlayer)-100
+        }
+
+        else if(randomChanceCard == 3)
+        {
+            playerMoney.(currentPlayer)-100
+        }
+
+        else if(randomChanceCard == 4)
+        {
+            playerMoney.(currentPlayer)-50
+        }
+
+        else if(randomChanceCard == 5)
+        {
+            playerMoney.(currentPlayer)-25
+        }
+
+        else if(randomChanceCard == 6)
+        {
+            playerMoney.(currentPlayer)+150
+        }
+
+        else if(randomChanceCard == 7)
+        {
+            playerMoney.(currentPlayer)+50
+        }
+
+        else if(randomChanceCard == 8)
+        {
+            playerMoney.(currentPlayer)+50
+        }
+
+        else if(randomChanceCard == 9)
+        {
+            playerMoney.(currentPlayer)+150
+        }
+
+        else if(randomChanceCard == 10)
+        {
+            playerMoney.(currentPlayer)-100
+        }
+
+        else if(randomChanceCard == 11)
+        {
+            playerMoney.(currentPlayer)+150
+        }
+
+        else if(randomChanceCard == 12)
+        {
+            playerMoney.(currentPlayer)+200
+        }
+    }
 }
