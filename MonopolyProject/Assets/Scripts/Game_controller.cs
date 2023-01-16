@@ -373,7 +373,7 @@ public class Game_controller : MonoBehaviour
 
     public void startPlayerMove(Transform player)
     {
-        
+
 
         if (playerCurrentTilePos[currentPlayer] >= 40)
         {
@@ -400,22 +400,93 @@ public class Game_controller : MonoBehaviour
             player.position = new Vector2(-(float)rightRowXcord, - (float)rightRowYCord[rightPos] );
         }
 
-        
+
         Debug.Log("after player move pos: "+playerCurrentTilePos[currentPlayer]);
         checkPosType(playerCurrentTilePos[currentPlayer]);
 
         moving = false;
     }
 
-    public void checkPosType(int pos) 
+    public void chanceCards()
     {
-       
+    int randomChanceCard = UnityEngine.Random.Range(0, 16);
+
+        if(randomChanceCard == 0)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-200;
+        }
+
+        else if(randomChanceCard == 1)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+        }
+
+        else if(randomChanceCard == 2)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+        }
+
+        else if(randomChanceCard == 3)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+        }
+
+        else if(randomChanceCard == 4)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-50;
+        }
+
+        else if(randomChanceCard == 5)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-25;
+        }
+
+        else if(randomChanceCard == 6)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+        }
+
+        else if(randomChanceCard == 7)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+        }
+
+        else if(randomChanceCard == 8)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+        }
+
+        else if(randomChanceCard == 9)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+        }
+
+        else if(randomChanceCard == 10)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+        }
+
+        else if(randomChanceCard == 11)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+        }
+
+        else if(randomChanceCard == 12)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+        }
+    }
+
+
+    public void checkPosType(int pos)
+    {
+
         int property = 50;
         if (pos == 1)
-        { 
+        {
             property = 0;
         }
-        else if (pos == 3) 
+        else if (pos == 3)
         {
             property = 1;
         }
@@ -533,7 +604,7 @@ public class Game_controller : MonoBehaviour
                 buyMenuPriceTag.text = "Purchase price: " + propertyCost[property].ToString();
                 regularValue.text = "Regular value: " + propertyCost[property].ToString();
             }
-            else 
+            else
             {
                 payPropertyOwner(property);
             }
