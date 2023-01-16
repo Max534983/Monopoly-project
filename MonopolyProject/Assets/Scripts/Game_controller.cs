@@ -17,6 +17,10 @@ public class Game_controller : MonoBehaviour
     int[] propertyOwner = new int[] {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10 };
     int[] propertyCost = new int[] {60,60,200,100,100,120,150,140,140,160,200,180,180,200,220,220,240,200,260,260,150,260,300,300,320,200,350,400};
 
+    int[] propertyRent = new int[] { 2, 4, 6, 6, 8, 10, 10, 12, 14, 14, 16, 18, 18, 20, 22, 22, 24, 26, 26, 28, 35, 50 };
+    int[] fullSetRent = new int[] {4,8,12,12,16,20,20,24,28,28,32,36,36,40,44,44,48,52,52,56,70,100};
+    int[] buildLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0 };
+
     double bottomRowXCord = -3.3;
     double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4,3.15};
     double leftRowYCord = 3.3;
@@ -81,6 +85,10 @@ public class Game_controller : MonoBehaviour
 
     int turn = 0;
 
+    public Text whoPaysWho;
+    public Text payAmount;
+    public GameObject payMenu;
+
     void Start()
     {
         fillPlayerNames();
@@ -114,6 +122,7 @@ public class Game_controller : MonoBehaviour
         {
             currentPlayer++;
             diceThrown = false;
+            payMenu.SetActive(false);
         }
         else if (diceThrown == false)
         {
@@ -610,7 +619,225 @@ public class Game_controller : MonoBehaviour
 
     public void payPropertyOwner(int property)
     {
-        Debug.Log(playerNames[currentPlayer] + " pays " + playerNames[propertyOwner[property]]);
+        int payTotal = 0;
+        if (currentPlayer != propertyOwner[property])
+        {
+            if (property == 2 || property == 10 || property == 17 || property == 25)
+            {
+                playerMoney[currentPlayer] -= trainStation(propertyOwner[property]);
+                payTotal = trainStation(propertyOwner[property]);
+                playerMoney[propertyOwner[property]] += trainStation(propertyOwner[property]);
+                Debug.Log("Pay for the train");
+            }
+            else if (property == 7 || property == 20)
+            {
+                if (propertyOwner[7] == propertyOwner[property] && propertyOwner[20] == propertyOwner[property])
+                {
+                    playerMoney[currentPlayer] -= totalOnDice * 10;
+                    payTotal= totalOnDice * 10;
+                    playerMoney[propertyOwner[property]] += totalOnDice * 10;
+                    Debug.Log("2 kluts");
+                }
+                if (propertyOwner[7] == propertyOwner[property] || propertyOwner[20] == propertyOwner[property])
+                {
+                    playerMoney[currentPlayer] -= totalOnDice * 4;
+                    payTotal= totalOnDice * 4;
+                    playerMoney[propertyOwner[property]] += totalOnDice * 4;
+                    Debug.Log("1 kluts");
+                }
+            }
+            else 
+            {
+                payTotal = payForCommonProperty(property);
+
+                playerMoney[currentPlayer] -= payTotal;
+                playerMoney[propertyOwner[property]] += payTotal;
+
+                Debug.Log("normaal");
+            }
+        }
+
+        payMenu.SetActive(true);
+        whoPaysWho.text = playerNames[currentPlayer] + " pays: " + playerNames[propertyOwner[property]];
+        payAmount.text = "The amount: " + payTotal.ToString();
+        updateMoney();
     }
+
+    public int payForCommonProperty(int property) 
+    {
+        int price = 0;
+        int rentPos = 30;
+        int ownerNo = propertyOwner[property];
+
+        if (property == 0)
+        { 
+            rentPos= 0;
+        }
+        if (property == 1)
+        {
+            rentPos = 1;
+        }
+        if (property == 3)
+        {
+            rentPos = 2;
+        }
+        if (property == 4)
+        {
+            rentPos = 3;
+        }
+        if (property == 5)
+        {
+            rentPos = 4;
+        }
+        if (property == 6)
+        {
+            rentPos = 5;
+        }
+        if (property == 8)
+        {
+            rentPos = 6;
+        }
+        if (property == 9)
+        {
+            rentPos = 7;
+        }
+        if (property == 11)
+        {
+            rentPos = 8;
+        }
+        if (property == 12)
+        {
+            rentPos = 9;
+        }
+        if (property == 13)
+        {
+            rentPos = 10;
+        }
+        if (property == 14)
+        {
+            rentPos = 11;
+        }
+        if (property == 15)
+        {
+            rentPos = 12;
+        }
+        if (property == 16)
+        {
+            rentPos = 13;
+        }
+        if (property == 18)
+        {
+            rentPos = 14;
+        }
+        if (property == 19)
+        {
+            rentPos = 15;
+        }
+        if (property == 21)
+        {
+            rentPos = 16;
+        }
+        if (property == 22)
+        {
+            rentPos = 17;
+        }
+        if (property == 23)
+        {
+            rentPos = 18;
+        }
+        if (property == 24)
+        {
+            rentPos = 19;
+        }
+        if (property == 26)
+        {
+            rentPos = 20;
+        }
+        if (property == 27)
+        {
+            rentPos = 21;
+        }
+
+        price = propertyRent[rentPos];
+
+        if (propertyOwner[0] == ownerNo && propertyOwner[1] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 10);
+        }
+        if (propertyOwner[3] == ownerNo && propertyOwner[4] == ownerNo && propertyOwner[5] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 20);
+        }
+        if (propertyOwner[6] == ownerNo && propertyOwner[8] == ownerNo && propertyOwner[9] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 30);
+        }
+        if (propertyOwner[11] == ownerNo && propertyOwner[12] == ownerNo && propertyOwner[13] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 40);
+        }
+        if (propertyOwner[14] == ownerNo && propertyOwner[15] == ownerNo && propertyOwner[16] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 50);
+        }
+        if (propertyOwner[18] == ownerNo && propertyOwner[19] == ownerNo && propertyOwner[21] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 60);
+        }
+        if (propertyOwner[22] == ownerNo && propertyOwner[23] == ownerNo && propertyOwner[24] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 70);
+        }
+        if (propertyOwner[26] == ownerNo && propertyOwner[27] == ownerNo)
+        {
+            price = fullSetRent[property] + (buildLevel[property] * 80);
+        }
+
+        return price;
+    }
+
+    public int trainStation(int playerNr)
+    {
+        int totalPrice = 0;
+        int owns = 0;
+        if (propertyOwner[2] == playerNr)
+        {
+            totalPrice += 25;
+            owns += 1;
+        }
+        if (propertyOwner[10] == playerNr)
+        {
+            totalPrice += 25;
+            owns += 1;
+        }
+        if (propertyOwner[17] == playerNr)
+        {
+            totalPrice += 25;
+            owns += 1;
+        }
+        if (propertyOwner[25] == playerNr)
+        {
+            totalPrice += 25;
+            owns += 1;
+        }
+
+        if (owns == 3)
+        {
+            totalPrice = 100;
+        }
+
+        if (owns == 4)
+        {
+            totalPrice = 200;
+        }
+
+        return totalPrice;
+    }
+
+    public void hidePayMenu()
+    { 
+        payMenu.SetActive(false);
+    }
+
 }
 
