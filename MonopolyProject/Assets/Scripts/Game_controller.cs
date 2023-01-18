@@ -409,7 +409,7 @@ public class Game_controller : MonoBehaviour
 
     public void chanceCards()
     {
-    int randomChanceCard = UnityEngine.Random.Range(0, 16);
+    int randomChanceCard = UnityEngine.Random.Range(0, 15);
 
         if(randomChanceCard == 0)
         {
@@ -453,7 +453,7 @@ public class Game_controller : MonoBehaviour
 
         else if(randomChanceCard == 8)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
         }
 
         else if(randomChanceCard == 9)
@@ -463,20 +463,199 @@ public class Game_controller : MonoBehaviour
 
         else if(randomChanceCard == 10)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer];
         }
 
         else if(randomChanceCard == 11)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+             playerCurrentTilePos[currentPlayer] = 0;
+
+                         if (playerLineUp[currentPlayer] == 0)
+                                {
+                                    moving = true;
+                                    startPlayerMove(player_1);
+                                }
+                                else if (playerLineUp[currentPlayer] == 1)
+                                {
+                                    moving = true;
+                                    startPlayerMove(player_2);
+                                }
+                                else if (playerLineUp[currentPlayer] == 2)
+                                {
+                                    moving = true;
+                                    startPlayerMove(player_3);
+                                }
+                                else if (playerLineUp[currentPlayer] == 3)
+                                {
+                                    moving = true;
+                                    startPlayerMove(player_4);
+                                }
         }
 
         else if(randomChanceCard == 12)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+        }
+
+        else if(randomChanceCard == 13)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
+        }
+
+        else if(randomChanceCard == 14)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+        }
+
+        else if(randomChanceCard == 15)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-200;
         }
     }
 
+
+public void communityChestCards()
+    {
+    int randomCommunityChestCard = UnityEngine.Random.Range(0, 15);
+
+        if(randomCommunityChestCard == 0)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+        }
+
+        else if(randomCommunityChestCard == 1)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
+        }
+
+        else if(randomCommunityChestCard == 2)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-150;
+
+        }
+
+        else if(randomCommunityChestCard == 3)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+20;
+        }
+
+        else if(randomCommunityChestCard == 4)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+10;
+        }
+
+        else if(randomCommunityChestCard == 5)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+        }
+
+        else if(randomCommunityChestCard == 6)
+        {
+            //Give current player 4x10=40.
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+40;
+
+            //Subtract 10 off of every player, which leaves the current player with +10 of every player.
+            playerMoney[1] = playerMoney[1]-10;
+            playerMoney[2] = playerMoney[2]-10;
+            playerMoney[3] = playerMoney[3]-10;
+            playerMoney[4] = playerMoney[4]-10;
+        }
+
+        else if(randomCommunityChestCard == 7)
+        {
+            //Give current player 4x50=200.
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+
+            //Subtract 50 off of every player, which leaves the current player with +50 of every player.
+            playerMoney[1] = playerMoney[1]-50;
+            playerMoney[2] = playerMoney[2]-50;
+            playerMoney[3] = playerMoney[3]-50;
+            playerMoney[4] = playerMoney[4]-50;
+        }
+
+        else if(randomCommunityChestCard == 8)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-10;
+        }
+
+        else if(randomCommunityChestCard == 9)
+        {
+            playerCurrentTilePos[currentPlayer] = 0;
+
+             if (playerLineUp[currentPlayer] == 0)
+                    {
+                        moving = true;
+                        startPlayerMove(player_1);
+                    }
+                    else if (playerLineUp[currentPlayer] == 1)
+                    {
+                        moving = true;
+                        startPlayerMove(player_2);
+                    }
+                    else if (playerLineUp[currentPlayer] == 2)
+                    {
+                        moving = true;
+                        startPlayerMove(player_3);
+                    }
+                    else if (playerLineUp[currentPlayer] == 3)
+                    {
+                        moving = true;
+                        startPlayerMove(player_4);
+                    }
+        }
+
+        else if(randomCommunityChestCard == 10)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+25;
+        }
+
+        else if(randomCommunityChestCard == 11)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
+        }
+
+        else if(randomCommunityChestCard == 12)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+250;
+        }
+
+        else if(randomCommunityChestCard == 13)
+        {
+            playerCurrentTilePos[currentPlayer] = 0;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+                     if (playerLineUp[currentPlayer] == 0)
+                            {
+                                moving = true;
+                                startPlayerMove(player_1);
+                            }
+                            else if (playerLineUp[currentPlayer] == 1)
+                            {
+                                moving = true;
+                                startPlayerMove(player_2);
+                            }
+                            else if (playerLineUp[currentPlayer] == 2)
+                            {
+                                moving = true;
+                                startPlayerMove(player_3);
+                            }
+                            else if (playerLineUp[currentPlayer] == 3)
+                            {
+                                moving = true;
+                                startPlayerMove(player_4);
+                            }
+
+        }
+
+        else if(randomCommunityChestCard == 14)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+        }
+
+        else if(randomCommunityChestCard == 15)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer]-50;
+        }
+    }
 
     public void checkPosType(int pos)
     {
