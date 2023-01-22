@@ -29,6 +29,7 @@ public class Game_controller : MonoBehaviour
     double[] topRowYcord = new double[] { 2.4, 1.8, 1.2, 0.6, 0.0, -0.6, -1.2, -1.8, -2.4, -3.15 };
     double rightRowXcord = -3.3;
     double[] rightRowYCord = new double[] { -2.4, -1.8, -1.2, -0.6, 0.0, 0.6, 1.2, 1.8, 2.4, 3.15 };
+    bool[] bankRuptPlayers = new bool[] { false, false, false, false };
 
 
     public Text textPlayer_1;
@@ -89,6 +90,10 @@ public class Game_controller : MonoBehaviour
     public Text payAmount;
     public GameObject payMenu;
 
+    public GameObject[] propertyMarkers = new GameObject[] {};
+    public SpriteRenderer[] propertyMarkersSprites = new SpriteRenderer[] { };
+    public Sprite[] propertyMarkersBaseSprites = new Sprite[] { };
+
     void Start()
     {
         fillPlayerNames();
@@ -135,13 +140,45 @@ public class Game_controller : MonoBehaviour
             error("decideToBuy");
         }
 
-
-        if (currentPlayer == 4)
+        if (currentPlayer >= 4)
         {
             currentPlayer = 0;
-            turn = turn + 1;
         }
 
+        for (int i = 0; i < bankRuptPlayers.Length; i++)
+        {
+            if (bankRuptPlayers[i] == true)
+            {
+                Debug.Log(i + " checked " + currentPlayer);
+                if (i == currentPlayer)
+                {
+                    Debug.Log(playerNames[i] + " bankruptcy " + bankRuptPlayers[i]);
+                    currentPlayer = i + 1;
+                }
+
+            }
+        }
+        
+
+
+        if (currentPlayer >= 4)
+        {
+            currentPlayer = 0;
+
+            if (bankRuptPlayers[currentPlayer] == true)
+            {
+                currentPlayer++;
+            }
+            if (bankRuptPlayers[currentPlayer] == true)
+            {
+                currentPlayer++;
+            }
+            if (bankRuptPlayers[currentPlayer] == true)
+            {
+                currentPlayer++;
+            }
+        }
+        Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
 
     }
@@ -287,6 +324,7 @@ public class Game_controller : MonoBehaviour
     {
         string[] playerNamesUpdate = new string[] { "", "", "", "" };
         int[] newPlayerLineup = new int[] { 0, 0, 0, 0 };
+        Sprite[] newMarkerSpriteLineUp = new Sprite[] { propertyMarkersBaseSprites[0], propertyMarkersBaseSprites[1], propertyMarkersBaseSprites[2], propertyMarkersBaseSprites[3] };
 
         //Kijk wie er het hoogste gooide
         for (int i = 0; i < playerNames.Length; i++)
@@ -312,6 +350,11 @@ public class Game_controller : MonoBehaviour
         {
             playerNames[i] = playerNamesUpdate[i];
             playerLineUp[i] = newPlayerLineup[i];
+        }
+
+        for (int i = 0; i < playerLineUp.Length; i++)
+        {
+            propertyMarkersBaseSprites[i] = newMarkerSpriteLineUp[playerLineUp[i]];
         }
 
         diceThrown = false;
@@ -344,6 +387,7 @@ public class Game_controller : MonoBehaviour
         textLower_2.text = playerMoney[1].ToString() + " $";
         textLower_3.text = playerMoney[2].ToString() + " $";
         textLower_4.text = playerMoney[3].ToString() + " $";
+        checkBankrupt();
     }
 
     public void movePlayer()
@@ -741,35 +785,59 @@ public void communityChestCards()
         {
             property = 19;
         }
-        else if (pos == 29)
+        else if (pos == 28)
         {
             property = 20;
         }
-        else if (pos == 31)
+        else if (pos == 29)
         {
             property = 21;
         }
-        else if (pos == 32)
+        else if (pos == 31)
         {
             property = 22;
         }
-        else if (pos == 34)
+        else if (pos == 32)
         {
             property = 23;
         }
-        else if (pos == 35)
+        else if (pos == 34)
         {
             property = 24;
         }
-        else if (pos == 37)
+        else if (pos == 35)
         {
             property = 25;
+        }
+        else if (pos == 37)
+        {
+            property = 26;
         }
         else if (pos == 39)
         {
             property = 27;
         }
 
+        if (pos == 4)
+        {
+            playerMoney[currentPlayer] -= 60;
+            updateMoney();
+            checkBankrupt();
+            if (playerMoney[currentPlayer] <= 0)
+            {
+                returnAllProperty(currentPlayer);
+            }
+        }
+        else if (pos == 38)
+        {
+            playerMoney[currentPlayer] -= 100;
+            updateMoney();
+            checkBankrupt();
+            if (playerMoney[currentPlayer] <= 0)
+            {
+                returnAllProperty(currentPlayer);
+            }
+        }
 
         Debug.Log("position: " + pos.ToString());
 
@@ -803,6 +871,7 @@ public void communityChestCards()
         playerMoney[currentPlayer] = playerMoney[currentPlayer] - propertyCost[propertyNumber];
         buyingProperty = false;
         buyMenu.SetActive(false);
+        setPropertyMarker(propertyNumber);
         updateMoney();
     }
 
@@ -878,6 +947,11 @@ public void communityChestCards()
                 payTotal = trainStation(propertyOwner[property]);
                 playerMoney[propertyOwner[property]] += trainStation(propertyOwner[property]);
                 Debug.Log("Pay for the train");
+
+                if (playerMoney[currentPlayer] <= 0)
+                {
+                    transferAllProperty(currentPlayer, propertyOwner[property]);
+                }
             }
             else if (property == 7 || property == 20)
             {
@@ -887,13 +961,23 @@ public void communityChestCards()
                     payTotal= totalOnDice * 10;
                     playerMoney[propertyOwner[property]] += totalOnDice * 10;
                     Debug.Log("2 kluts");
+
+                    if (playerMoney[currentPlayer] <= 0)
+                    {
+                        transferAllProperty(currentPlayer, propertyOwner[property]);
+                    }
                 }
-                if (propertyOwner[7] == propertyOwner[property] || propertyOwner[20] == propertyOwner[property])
+                else if (propertyOwner[7] == propertyOwner[property] || propertyOwner[20] == propertyOwner[property])
                 {
                     playerMoney[currentPlayer] -= totalOnDice * 4;
                     payTotal= totalOnDice * 4;
                     playerMoney[propertyOwner[property]] += totalOnDice * 4;
                     Debug.Log("1 kluts");
+
+                    if (playerMoney[currentPlayer] <= 0)
+                    {
+                        transferAllProperty(currentPlayer, propertyOwner[property]);
+                    }
                 }
             }
             else 
@@ -903,14 +987,22 @@ public void communityChestCards()
                 playerMoney[currentPlayer] -= payTotal;
                 playerMoney[propertyOwner[property]] += payTotal;
 
-                Debug.Log("normaal");
+                if (playerMoney[currentPlayer] <= 0)
+                {
+                    transferAllProperty(currentPlayer, propertyOwner[property]);
+                }
             }
-        }
+            payMenu.SetActive(true);
+            whoPaysWho.text = playerNames[currentPlayer] + " pays: " + playerNames[propertyOwner[property]];
+            payAmount.text = "The amount: " + payTotal.ToString();
 
-        payMenu.SetActive(true);
-        whoPaysWho.text = playerNames[currentPlayer] + " pays: " + playerNames[propertyOwner[property]];
-        payAmount.text = "The amount: " + payTotal.ToString();
-        updateMoney();
+            if (playerMoney[currentPlayer] <= 0)
+            {
+                checkBankrupt();
+            }
+            
+            updateMoney();
+        }
     }
 
     public int payForCommonProperty(int property) 
@@ -1012,35 +1104,35 @@ public void communityChestCards()
 
         if (propertyOwner[0] == ownerNo && propertyOwner[1] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 10);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 10);
         }
         if (propertyOwner[3] == ownerNo && propertyOwner[4] == ownerNo && propertyOwner[5] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 20);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 20);
         }
         if (propertyOwner[6] == ownerNo && propertyOwner[8] == ownerNo && propertyOwner[9] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 30);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 30);
         }
         if (propertyOwner[11] == ownerNo && propertyOwner[12] == ownerNo && propertyOwner[13] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 40);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 40);
         }
         if (propertyOwner[14] == ownerNo && propertyOwner[15] == ownerNo && propertyOwner[16] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 50);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 50);
         }
         if (propertyOwner[18] == ownerNo && propertyOwner[19] == ownerNo && propertyOwner[21] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 60);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 60);
         }
         if (propertyOwner[22] == ownerNo && propertyOwner[23] == ownerNo && propertyOwner[24] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 70);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 70);
         }
         if (propertyOwner[26] == ownerNo && propertyOwner[27] == ownerNo)
         {
-            price = fullSetRent[property] + (buildLevel[property] * 80);
+            price = fullSetRent[rentPos] + (buildLevel[rentPos] * 80);
         }
 
         return price;
@@ -1089,5 +1181,77 @@ public void communityChestCards()
         payMenu.SetActive(false);
     }
 
+    public void checkBankrupt()
+    {
+        if (playerMoney[currentPlayer] <= 0)
+        {
+            Debug.Log("Bankrupted player: " + currentPlayer);
+            bankRuptPlayers[currentPlayer] = true;
+            if (currentPlayer == 0)
+            {
+                textLower_1.enabled = false;
+                textPlayer_1.enabled = false;
+            }
+            if (currentPlayer == 1)
+            {
+                textLower_2.enabled = false;
+                textPlayer_2.enabled = false;
+            }
+            if (currentPlayer == 2)
+            {
+                textLower_3.enabled = false;
+                textPlayer_3.enabled = false;
+            }
+            if (currentPlayer == 3)
+            {
+                textLower_4.enabled = false;
+                textPlayer_4.enabled = false;
+            }
+            playerTurn();
+        }
+    }
+
+    public void transferAllProperty(int bankruptPlayerNr, int propertyOwnerNr)
+    {
+        for (int i = 0; i < propertyOwner.Length; i++)
+        {
+            if (propertyOwner[i] == bankruptPlayerNr)
+            {
+                propertyOwner[i] = propertyOwnerNr;
+                changePropertyMarker(i, propertyOwnerNr);
+            }
+        }
+    }
+
+    public void returnAllProperty(int bankruptPlayerNr)
+    {
+        for (int i = 0; i < propertyOwner.Length; i++)
+        {
+            if (propertyOwner[i] == bankruptPlayerNr)
+            {
+                propertyOwner[i] = 10;
+                disablePropertyMarker(i);
+            }
+        }
+    }
+    public void changePropertyMarker(int property, int newOwner)
+    {
+        Debug.Log("Changed owner");
+        propertyMarkers[property].SetActive(true);
+        propertyMarkersSprites[property].sprite = propertyMarkersBaseSprites[newOwner];
+    }
+
+    public void disablePropertyMarker(int property)
+    {
+        Debug.Log("Disabled property markers");
+        propertyMarkers[property].SetActive(false);
+    }
+
+    public void setPropertyMarker(int property)
+    {
+        Debug.Log("Marked property: " + property);
+        propertyMarkers[property].SetActive(true);
+        propertyMarkersSprites[property].sprite = propertyMarkersBaseSprites[currentPlayer];
+    }
 }
 
