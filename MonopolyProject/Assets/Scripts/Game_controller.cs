@@ -16,11 +16,9 @@ public class Game_controller : MonoBehaviour
     int[] playerMoney = new int[] { 1500, 1500, 1500, 1500 };
     int[] propertyOwner = new int[] {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10 };
     int[] propertyCost = new int[] {60,60,200,100,100,120,150,140,140,160,200,180,180,200,220,220,240,200,260,260,150,260,300,300,320,200,350,400};
-
     int[] propertyRent = new int[] { 2, 4, 6, 6, 8, 10, 10, 12, 14, 14, 16, 18, 18, 20, 22, 22, 24, 26, 26, 28, 35, 50 };
     int[] fullSetRent = new int[] {4,8,12,12,16,20,20,24,28,28,32,36,36,40,44,44,48,52,52,56,70,100};
     int[] buildLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0 };
-
     double bottomRowXCord = -3.3;
     double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4,3.15};
     double leftRowYCord = 3.3;
@@ -93,6 +91,22 @@ public class Game_controller : MonoBehaviour
     public GameObject[] propertyMarkers = new GameObject[] {};
     public SpriteRenderer[] propertyMarkersSprites = new SpriteRenderer[] { };
     public Sprite[] propertyMarkersBaseSprites = new Sprite[] { };
+
+    public Sprite[] propertyCards = new Sprite[] { };
+
+    public GameObject startTradePanel;
+    public GameObject tradePanel;
+
+    public Text option1Text;
+    public Text option2Text;
+    public Text option3Text;
+    int[] tradeOption = new int[] {10,10,10 };
+    int playerPickedForTrade = 10;
+    int[] ownedCardId = new int[] {99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99};
+    public UnityEngine.UI.Image tradePropertyImage;
+    int selectedTradeCard = 0;
+    int boughtTradeCard = 99;
+    public InputField tradePrice;
 
     void Start()
     {
@@ -1253,5 +1267,123 @@ public void communityChestCards()
         propertyMarkers[property].SetActive(true);
         propertyMarkersSprites[property].sprite = propertyMarkersBaseSprites[currentPlayer];
     }
+
+    public void startTrade()
+    {
+        if (firstThrow == false)
+        {
+            startTradePanel.SetActive(true);
+            Debug.Log("Start trade");
+            int ingevuld = 0;
+            for (int i = 0; i < playerNames.Length; i++)
+            {
+                if (i != currentPlayer)
+                {
+                    if (ingevuld == 0)
+                    {   
+                        option1Text.text = playerNames[i];
+                        tradeOption[0] = i;
+                    }
+                    if (ingevuld == 1)
+                    {
+                        option2Text.text = playerNames[i];
+                        tradeOption[1] = i;
+                    }
+                    if (ingevuld == 2)
+                    {
+                        option3Text.text = playerNames[i];
+                        tradeOption[2] = i;
+                    }
+                    ingevuld++;
+                }
+            }
+        }
+    }
+
+    public void stopTrade() 
+    {
+        startTradePanel.SetActive(false);
+    }
+
+    public void option1()
+    {
+        startTradePanel.SetActive(false);
+        playerPickedForTrade = tradeOption[0];
+        tradePanel.SetActive(true);
+        int nr = 0;
+        for (int i = 0; i < propertyOwner.Length; i++)
+        {
+            if (propertyOwner[i] == playerPickedForTrade)
+            {
+                ownedCardId[nr] = i;
+                nr++;
+            }
+        }
+        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+    }
+
+    public void option2() 
+    {
+        startTradePanel.SetActive(false);
+        playerPickedForTrade = tradeOption[1];
+        tradePanel.SetActive(true);
+        int nr = 0;
+        for (int i = 0; i < propertyOwner.Length; i++)
+        {
+            if (propertyOwner[i] == playerPickedForTrade)
+            {
+                ownedCardId[nr] = i;
+                nr++;
+            }
+        }
+        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+    }
+
+    public void option3()
+    {
+        startTradePanel.SetActive(false);
+        playerPickedForTrade = tradeOption[2];
+        tradePanel.SetActive(true);
+        int nr = 0;
+        for (int i = 0; i < propertyOwner.Length; i++)
+        {
+            if (propertyOwner[i] == playerPickedForTrade)
+            {
+                ownedCardId[nr] = i;
+                nr++;
+            }
+        }
+        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+    }
+
+    public void noDeal()
+    { 
+        startTradePanel.SetActive(true);
+        tradePanel.SetActive(false);
+    }
+
+    public void nextCard()
+    {
+        selectedTradeCard++;
+        if (ownedCardId[selectedTradeCard] == 99)
+        { 
+            selectedTradeCard = 0;
+        }
+        tradePropertyImage.sprite = propertyCards[ownedCardId[selectedTradeCard]];
+    }
+
+    public void Deal() 
+    {
+        playerMoney[currentPlayer] -= int.Parse(tradePrice.text);
+        playerMoney[playerPickedForTrade] += int.Parse(tradePrice.text);
+        propertyOwner[ownedCardId[selectedTradeCard]] = currentPlayer;
+        updateMoney();
+        changePropertyMarker(ownedCardId[selectedTradeCard], currentPlayer);
+        startTradePanel.SetActive(false);
+        tradePanel.SetActive(false);
+        tradePrice.text = "0";
+    }
+
+
 }
 
