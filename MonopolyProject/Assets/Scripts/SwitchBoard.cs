@@ -25,17 +25,11 @@ PlayerNames.Player2 = null;
 PlayerNames.Player3 = null;
 PlayerNames.Player4 = null;
 SceneManager.LoadScene(1);
-GameObjectToDeactivate.SetActive(true);
+GameObjectToDeactivate.SetActive(!GameObjectToDeactivate.activeInHierarchy);
 }
 }
     public void CloseButton()
     {
-        SceneManager.LoadScene(0);
-        PlayerNames.Player1 = null;
-        PlayerNames.Player2 = null;
-        PlayerNames.Player3 = null;
-        PlayerNames.Player4 = null;
-        SceneManager.LoadScene(1);
         GameObjectToDeactivate.SetActive(false);
     }
 
