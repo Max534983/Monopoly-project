@@ -2140,7 +2140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a569aeaa0790a74a87dbaa1b493886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  GameObjectToDeactivate: {fileID: 2025329011}
+=======
   board: Board
+>>>>>>> parent of d10723c (bord veranderd)
 --- !u!4 &968577858
 Transform:
   m_ObjectHideFlags: 0
@@ -2168,7 +2172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a569aeaa0790a74a87dbaa1b493886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  GameObjectToDeactivate: {fileID: 2025329011}
+=======
   board: Board
+>>>>>>> parent of d10723c (bord veranderd)
 --- !u!1 &981043596
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,7 +2273,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &981043599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2514,9 +2522,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1237634406}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000061035156, y: 0, z: -10.000001}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2558,7 +2566,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a569aeaa0790a74a87dbaa1b493886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  GameObjectToDeactivate: {fileID: 0}
+=======
   board: Board
+>>>>>>> parent of d10723c (bord veranderd)
 --- !u!114 &1237634413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,7 +2595,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a569aeaa0790a74a87dbaa1b493886f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  GameObjectToDeactivate: {fileID: 0}
+=======
   board: Board
+>>>>>>> parent of d10723c (bord veranderd)
 --- !u!1 &1333359466
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,6 +4001,7 @@ GameObject:
   - component: {fileID: 1857691392}
   - component: {fileID: 1857691394}
   - component: {fileID: 1857691393}
+  - component: {fileID: 1857691395}
   m_Layer: 5
   m_Name: Players needed
   m_TagString: Untagged
@@ -4051,6 +4068,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857691391}
   m_CullTransparentMesh: 1
+--- !u!114 &1857691395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857691391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a569aeaa0790a74a87dbaa1b493886f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectToDeactivate: {fileID: 1857691391}
 --- !u!1 &1906148277
 GameObject:
   m_ObjectHideFlags: 0
