@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,18 +10,18 @@ using UnityEngine.UIElements;
 
 public class Game_controller : MonoBehaviour
 {
-    string[] playerNames = new string[] {"Player_1", "Player_2", "Player_3", "Player_4" };
+    string[] playerNames = new string[] { "Player_1", "Player_2", "Player_3", "Player_4" };
     int[] playerLineUp = new int[] { 1, 2, 3, 4 };
-    int[] firstThrowValue = new int[] {0,0,0,0};
-    int[] playerCurrentTilePos = new int[] {0,0,0,0};
+    int[] firstThrowValue = new int[] { 0, 0, 0, 0 };
+    int[] playerCurrentTilePos = new int[] { 0, 0, 0, 0 };
     int[] playerMoney = new int[] { 1500, 1500, 1500, 1500 };
-    int[] propertyOwner = new int[] {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10 };
-    int[] propertyCost = new int[] {60,60,200,100,100,120,150,140,140,160,200,180,180,200,220,220,240,200,260,260,150,260,300,300,320,200,350,400};
+    int[] propertyOwner = new int[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+    int[] propertyCost = new int[] { 60, 60, 200, 100, 100, 120, 150, 140, 140, 160, 200, 180, 180, 200, 220, 220, 240, 200, 260, 260, 150, 260, 300, 300, 320, 200, 350, 400 };
     int[] propertyRent = new int[] { 2, 4, 6, 6, 8, 10, 10, 12, 14, 14, 16, 18, 18, 20, 22, 22, 24, 26, 26, 28, 35, 50 };
-    int[] fullSetRent = new int[] {4,8,12,12,16,20,20,24,28,28,32,36,36,40,44,44,48,52,52,56,70,100};
-    int[] buildLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0 };
+    int[] fullSetRent = new int[] { 4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 32, 36, 36, 40, 44, 44, 48, 52, 52, 56, 70, 100 };
+    int[] buildLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     double bottomRowXCord = -3.3;
-    double[] bottomRowYCord = new double[] {-3.1,-2.4,-1.8,-1.2,-0.6,0,0.6,1.2,1.8,2.4,3.15};
+    double[] bottomRowYCord = new double[] { -3.1, -2.4, -1.8, -1.2, -0.6, 0, 0.6, 1.2, 1.8, 2.4, 3.15 };
     double leftRowYCord = 3.3;
     double[] leftRowXCord = new double[] { 2.4, 1.8, 1.2, 0.6, 0.0, -0.6, -1.2, -1.8, -2.4, -3.15 };
     double topRowXcord = 3.3;
@@ -88,7 +89,7 @@ public class Game_controller : MonoBehaviour
     public Text payAmount;
     public GameObject payMenu;
 
-    public GameObject[] propertyMarkers = new GameObject[] {};
+    public GameObject[] propertyMarkers = new GameObject[] { };
     public SpriteRenderer[] propertyMarkersSprites = new SpriteRenderer[] { };
     public Sprite[] propertyMarkersBaseSprites = new Sprite[] { };
 
@@ -100,13 +101,21 @@ public class Game_controller : MonoBehaviour
     public Text option1Text;
     public Text option2Text;
     public Text option3Text;
-    int[] tradeOption = new int[] {10,10,10 };
+    int[] tradeOption = new int[] { 10, 10, 10 };
     int playerPickedForTrade = 10;
-    int[] ownedCardId = new int[] {99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99,99};
+    int[] ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
     public UnityEngine.UI.Image tradePropertyImage;
     int selectedTradeCard = 0;
     int boughtTradeCard = 99;
     public InputField tradePrice;
+
+    public GameObject[] houses = new GameObject[] { };
+    public GameObject buildPanel;
+    public UnityEngine.UI.Image buildPropertyImage;
+    public Text buildPropertyCost;
+    int[] buildCost = new int[] { 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145 };
+    int buildingOnProperty = 40;
+
 
     void Start()
     {
@@ -115,27 +124,27 @@ public class Game_controller : MonoBehaviour
         switchPlayerUIColor();
     }
 
-    public void fillPlayerNames() 
+    public void fillPlayerNames()
     {
-       if (PlayerNames.Player1 != null) 
-       {
+        if (PlayerNames.Player1 != null)
+        {
             playerNames[0] = PlayerNames.Player1;
-       }
-       if (PlayerNames.Player2 != null)
-       {
+        }
+        if (PlayerNames.Player2 != null)
+        {
             playerNames[1] = PlayerNames.Player2;
-       }
-       if (PlayerNames.Player3 != null)
-       {
-             playerNames[2] = PlayerNames.Player3;
-       }
-       if (PlayerNames.Player4 != null)
-       {
+        }
+        if (PlayerNames.Player3 != null)
+        {
+            playerNames[2] = PlayerNames.Player3;
+        }
+        if (PlayerNames.Player4 != null)
+        {
             playerNames[3] = PlayerNames.Player4;
-       }
+        }
     }
 
-    public void playerTurn() 
+    public void playerTurn()
     {
         if (firstThrowValue[currentPlayer] != 0 || (firstThrow == false && diceThrown == true && doubleDice == false && buyingProperty == false))
         {
@@ -163,16 +172,17 @@ public class Game_controller : MonoBehaviour
         {
             if (bankRuptPlayers[i] == true)
             {
-                Debug.Log(i + " checked " + currentPlayer);
+                UnityEngine.Debug.Log(i + " checked " + currentPlayer);
                 if (i == currentPlayer)
                 {
-                    Debug.Log(playerNames[i] + " bankruptcy " + bankRuptPlayers[i]);
+                    UnityEngine.Debug.Log(playerNames[i] + " bankruptcy " + bankRuptPlayers[i]);
                     currentPlayer = i + 1;
                 }
 
             }
         }
-        
+
+        ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
 
 
         if (currentPlayer >= 4)
@@ -192,12 +202,12 @@ public class Game_controller : MonoBehaviour
                 currentPlayer++;
             }
         }
-        Debug.Log("The current player should be: " + currentPlayer);
+        UnityEngine.Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
 
     }
 
-    public void switchPlayerUIColor() 
+    public void switchPlayerUIColor()
     {
         if (currentPlayer == 0)
         {
@@ -285,7 +295,7 @@ public class Game_controller : MonoBehaviour
             {
                 firstThrow = false;
                 endFirstThrow();
-                Debug.Log("first throw is klaar");
+                UnityEngine.Debug.Log("first throw is klaar");
             }
 
             dice1_animation.SetInteger("Dice", dice1);
@@ -315,7 +325,7 @@ public class Game_controller : MonoBehaviour
 
     //hier staan alle soorten error's die op het scherm mogen verschijnen
     public void error(string errorType)
-    {   
+    {
         if (errorType.Equals("throwDice"))
         {
             ErrorBox.gameObject.SetActive(true);
@@ -334,7 +344,7 @@ public class Game_controller : MonoBehaviour
         }
     }
 
-    public void endFirstThrow() 
+    public void endFirstThrow()
     {
         string[] playerNamesUpdate = new string[] { "", "", "", "" };
         int[] newPlayerLineup = new int[] { 0, 0, 0, 0 };
@@ -345,7 +355,7 @@ public class Game_controller : MonoBehaviour
         {
             int playerWithHighestThrow = 0;
             int highestNumber = 0;
-            for (int y = 0; y < playerNames.Length; y++) 
+            for (int y = 0; y < playerNames.Length; y++)
             {
                 if (firstThrowValue[y] > highestNumber)
                 {
@@ -356,7 +366,7 @@ public class Game_controller : MonoBehaviour
             firstThrowValue[playerWithHighestThrow] = 0;
             newPlayerLineup[i] = playerWithHighestThrow;
             playerNamesUpdate[i] = playerNames[playerWithHighestThrow];
-            Debug.Log(newPlayerLineup[i]);
+            UnityEngine.Debug.Log(newPlayerLineup[i]);
         }
 
         //verander de namen. laat de mensen die het hoogst gooien op volgorde gaan.
@@ -377,8 +387,8 @@ public class Game_controller : MonoBehaviour
     }
 
     //Zorg dat de UI er goed uitziet wanneer het spel start
-    public void gameStartUi() 
-    {   
+    public void gameStartUi()
+    {
         textPlayer_1.text = playerNames[0];
         textPlayer_1.color = Color.green;
 
@@ -395,7 +405,7 @@ public class Game_controller : MonoBehaviour
         ErrorBox.gameObject.SetActive(false);
     }
 
-    public void updateMoney() 
+    public void updateMoney()
     {
         textLower_1.text = playerMoney[0].ToString() + " $";
         textLower_2.text = playerMoney[1].ToString() + " $";
@@ -455,11 +465,11 @@ public class Game_controller : MonoBehaviour
         else if (playerCurrentTilePos[currentPlayer] <= 40)
         {
             int rightPos = playerCurrentTilePos[currentPlayer] - 31;
-            player.position = new Vector2(-(float)rightRowXcord, - (float)rightRowYCord[rightPos] );
+            player.position = new Vector2(-(float)rightRowXcord, -(float)rightRowYCord[rightPos]);
         }
 
 
-        Debug.Log("after player move pos: "+playerCurrentTilePos[currentPlayer]);
+        UnityEngine.Debug.Log("after player move pos: " + playerCurrentTilePos[currentPlayer]);
         checkPosType(playerCurrentTilePos[currentPlayer]);
 
         moving = false;
@@ -467,251 +477,251 @@ public class Game_controller : MonoBehaviour
 
     public void chanceCards()
     {
-    int randomChanceCard = UnityEngine.Random.Range(0, 15);
+        int randomChanceCard = UnityEngine.Random.Range(0, 15);
 
-        if(randomChanceCard == 0)
+        if (randomChanceCard == 0)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 200;
         }
 
-        else if(randomChanceCard == 1)
+        else if (randomChanceCard == 1)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
         }
 
-        else if(randomChanceCard == 2)
+        else if (randomChanceCard == 2)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
         }
 
-        else if(randomChanceCard == 3)
+        else if (randomChanceCard == 3)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
         }
 
-        else if(randomChanceCard == 4)
+        else if (randomChanceCard == 4)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 50;
         }
 
-        else if(randomChanceCard == 5)
+        else if (randomChanceCard == 5)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-25;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 25;
         }
 
-        else if(randomChanceCard == 6)
+        else if (randomChanceCard == 6)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 150;
         }
 
-        else if(randomChanceCard == 7)
+        else if (randomChanceCard == 7)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
         }
 
-        else if(randomChanceCard == 8)
+        else if (randomChanceCard == 8)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
         }
 
-        else if(randomChanceCard == 9)
+        else if (randomChanceCard == 9)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+150;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 150;
         }
 
-        else if(randomChanceCard == 10)
+        else if (randomChanceCard == 10)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer];
         }
 
-        else if(randomChanceCard == 11)
+        else if (randomChanceCard == 11)
         {
-             playerCurrentTilePos[currentPlayer] = 0;
+            playerCurrentTilePos[currentPlayer] = 0;
 
-                         if (playerLineUp[currentPlayer] == 0)
-                                {
-                                    moving = true;
-                                    startPlayerMove(player_1);
-                                }
-                                else if (playerLineUp[currentPlayer] == 1)
-                                {
-                                    moving = true;
-                                    startPlayerMove(player_2);
-                                }
-                                else if (playerLineUp[currentPlayer] == 2)
-                                {
-                                    moving = true;
-                                    startPlayerMove(player_3);
-                                }
-                                else if (playerLineUp[currentPlayer] == 3)
-                                {
-                                    moving = true;
-                                    startPlayerMove(player_4);
-                                }
+            if (playerLineUp[currentPlayer] == 0)
+            {
+                moving = true;
+                startPlayerMove(player_1);
+            }
+            else if (playerLineUp[currentPlayer] == 1)
+            {
+                moving = true;
+                startPlayerMove(player_2);
+            }
+            else if (playerLineUp[currentPlayer] == 2)
+            {
+                moving = true;
+                startPlayerMove(player_3);
+            }
+            else if (playerLineUp[currentPlayer] == 3)
+            {
+                moving = true;
+                startPlayerMove(player_4);
+            }
         }
 
-        else if(randomChanceCard == 12)
+        else if (randomChanceCard == 12)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
         }
 
-        else if(randomChanceCard == 13)
+        else if (randomChanceCard == 13)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
         }
 
-        else if(randomChanceCard == 14)
+        else if (randomChanceCard == 14)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
         }
 
-        else if(randomChanceCard == 15)
+        else if (randomChanceCard == 15)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 200;
         }
     }
 
 
-public void communityChestCards()
+    public void communityChestCards()
     {
-    int randomCommunityChestCard = UnityEngine.Random.Range(0, 15);
+        int randomCommunityChestCard = UnityEngine.Random.Range(0, 15);
 
-        if(randomCommunityChestCard == 0)
+        if (randomCommunityChestCard == 0)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
         }
 
-        else if(randomCommunityChestCard == 1)
+        else if (randomCommunityChestCard == 1)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
         }
 
-        else if(randomCommunityChestCard == 2)
+        else if (randomCommunityChestCard == 2)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-150;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 150;
 
         }
 
-        else if(randomCommunityChestCard == 3)
+        else if (randomCommunityChestCard == 3)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+20;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 20;
         }
 
-        else if(randomCommunityChestCard == 4)
+        else if (randomCommunityChestCard == 4)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+10;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 10;
         }
 
-        else if(randomCommunityChestCard == 5)
+        else if (randomCommunityChestCard == 5)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
         }
 
-        else if(randomCommunityChestCard == 6)
+        else if (randomCommunityChestCard == 6)
         {
             //Give current player 4x10=40.
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+40;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 40;
 
             //Subtract 10 off of every player, which leaves the current player with +10 of every player.
-            playerMoney[1] = playerMoney[1]-10;
-            playerMoney[2] = playerMoney[2]-10;
-            playerMoney[3] = playerMoney[3]-10;
-            playerMoney[4] = playerMoney[4]-10;
+            playerMoney[1] = playerMoney[1] - 10;
+            playerMoney[2] = playerMoney[2] - 10;
+            playerMoney[3] = playerMoney[3] - 10;
+            playerMoney[4] = playerMoney[4] - 10;
         }
 
-        else if(randomCommunityChestCard == 7)
+        else if (randomCommunityChestCard == 7)
         {
             //Give current player 4x50=200.
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
 
             //Subtract 50 off of every player, which leaves the current player with +50 of every player.
-            playerMoney[1] = playerMoney[1]-50;
-            playerMoney[2] = playerMoney[2]-50;
-            playerMoney[3] = playerMoney[3]-50;
-            playerMoney[4] = playerMoney[4]-50;
+            playerMoney[1] = playerMoney[1] - 50;
+            playerMoney[2] = playerMoney[2] - 50;
+            playerMoney[3] = playerMoney[3] - 50;
+            playerMoney[4] = playerMoney[4] - 50;
         }
 
-        else if(randomCommunityChestCard == 8)
+        else if (randomCommunityChestCard == 8)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-10;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 10;
         }
 
-        else if(randomCommunityChestCard == 9)
-        {
-            playerCurrentTilePos[currentPlayer] = 0;
-
-             if (playerLineUp[currentPlayer] == 0)
-                    {
-                        moving = true;
-                        startPlayerMove(player_1);
-                    }
-                    else if (playerLineUp[currentPlayer] == 1)
-                    {
-                        moving = true;
-                        startPlayerMove(player_2);
-                    }
-                    else if (playerLineUp[currentPlayer] == 2)
-                    {
-                        moving = true;
-                        startPlayerMove(player_3);
-                    }
-                    else if (playerLineUp[currentPlayer] == 3)
-                    {
-                        moving = true;
-                        startPlayerMove(player_4);
-                    }
-        }
-
-        else if(randomCommunityChestCard == 10)
-        {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+25;
-        }
-
-        else if(randomCommunityChestCard == 11)
-        {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+100;
-        }
-
-        else if(randomCommunityChestCard == 12)
-        {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+250;
-        }
-
-        else if(randomCommunityChestCard == 13)
+        else if (randomCommunityChestCard == 9)
         {
             playerCurrentTilePos[currentPlayer] = 0;
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+200;
-                     if (playerLineUp[currentPlayer] == 0)
-                            {
-                                moving = true;
-                                startPlayerMove(player_1);
-                            }
-                            else if (playerLineUp[currentPlayer] == 1)
-                            {
-                                moving = true;
-                                startPlayerMove(player_2);
-                            }
-                            else if (playerLineUp[currentPlayer] == 2)
-                            {
-                                moving = true;
-                                startPlayerMove(player_3);
-                            }
-                            else if (playerLineUp[currentPlayer] == 3)
-                            {
-                                moving = true;
-                                startPlayerMove(player_4);
-                            }
+
+            if (playerLineUp[currentPlayer] == 0)
+            {
+                moving = true;
+                startPlayerMove(player_1);
+            }
+            else if (playerLineUp[currentPlayer] == 1)
+            {
+                moving = true;
+                startPlayerMove(player_2);
+            }
+            else if (playerLineUp[currentPlayer] == 2)
+            {
+                moving = true;
+                startPlayerMove(player_3);
+            }
+            else if (playerLineUp[currentPlayer] == 3)
+            {
+                moving = true;
+                startPlayerMove(player_4);
+            }
+        }
+
+        else if (randomCommunityChestCard == 10)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 25;
+        }
+
+        else if (randomCommunityChestCard == 11)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
+        }
+
+        else if (randomCommunityChestCard == 12)
+        {
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 250;
+        }
+
+        else if (randomCommunityChestCard == 13)
+        {
+            playerCurrentTilePos[currentPlayer] = 0;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
+            if (playerLineUp[currentPlayer] == 0)
+            {
+                moving = true;
+                startPlayerMove(player_1);
+            }
+            else if (playerLineUp[currentPlayer] == 1)
+            {
+                moving = true;
+                startPlayerMove(player_2);
+            }
+            else if (playerLineUp[currentPlayer] == 2)
+            {
+                moving = true;
+                startPlayerMove(player_3);
+            }
+            else if (playerLineUp[currentPlayer] == 3)
+            {
+                moving = true;
+                startPlayerMove(player_4);
+            }
 
         }
 
-        else if(randomCommunityChestCard == 14)
+        else if (randomCommunityChestCard == 14)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]+50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
         }
 
-        else if(randomCommunityChestCard == 15)
+        else if (randomCommunityChestCard == 15)
         {
-            playerMoney[currentPlayer] = playerMoney[currentPlayer]-50;
+            playerMoney[currentPlayer] = playerMoney[currentPlayer] - 50;
         }
     }
 
@@ -853,7 +863,7 @@ public void communityChestCards()
             }
         }
 
-        Debug.Log("position: " + pos.ToString());
+        UnityEngine.Debug.Log("position: " + pos.ToString());
 
         if (property != 50)
         {
@@ -880,7 +890,7 @@ public void communityChestCards()
             currentError = "noError";
         }
 
-        Debug.Log("buys for = " + propertyCost[propertyNumber]);
+        UnityEngine.Debug.Log("buys for = " + propertyCost[propertyNumber]);
         propertyOwner[propertyNumber] = currentPlayer;
         playerMoney[currentPlayer] = playerMoney[currentPlayer] - propertyCost[propertyNumber];
         buyingProperty = false;
@@ -912,7 +922,7 @@ public void communityChestCards()
         biddingPanel.SetActive(false);
         buyMenu.SetActive(false);
 
-        Debug.Log(hasHighestBid + " Won and got " + propertyNumber);
+        UnityEngine.Debug.Log(hasHighestBid + " Won and got " + propertyNumber);
 
         propertyOwner[propertyNumber] = hasHighestBid;
         playerMoney[hasHighestBid] = playerMoney[hasHighestBid] - highestBid;
@@ -947,7 +957,7 @@ public void communityChestCards()
             hasHighestBid = 3;
         }
 
-        Debug.Log("Player " + hasHighestBid + " has highest bid with " + highestBid);
+        UnityEngine.Debug.Log("Player " + hasHighestBid + " has highest bid with " + highestBid);
     }
 
     public void payPropertyOwner(int property)
@@ -960,7 +970,7 @@ public void communityChestCards()
                 playerMoney[currentPlayer] -= trainStation(propertyOwner[property]);
                 payTotal = trainStation(propertyOwner[property]);
                 playerMoney[propertyOwner[property]] += trainStation(propertyOwner[property]);
-                Debug.Log("Pay for the train");
+                UnityEngine.Debug.Log("Pay for the train");
 
                 if (playerMoney[currentPlayer] <= 0)
                 {
@@ -972,9 +982,9 @@ public void communityChestCards()
                 if (propertyOwner[7] == propertyOwner[property] && propertyOwner[20] == propertyOwner[property])
                 {
                     playerMoney[currentPlayer] -= totalOnDice * 10;
-                    payTotal= totalOnDice * 10;
+                    payTotal = totalOnDice * 10;
                     playerMoney[propertyOwner[property]] += totalOnDice * 10;
-                    Debug.Log("2 kluts");
+                    UnityEngine.Debug.Log("2 kluts");
 
                     if (playerMoney[currentPlayer] <= 0)
                     {
@@ -984,9 +994,9 @@ public void communityChestCards()
                 else if (propertyOwner[7] == propertyOwner[property] || propertyOwner[20] == propertyOwner[property])
                 {
                     playerMoney[currentPlayer] -= totalOnDice * 4;
-                    payTotal= totalOnDice * 4;
+                    payTotal = totalOnDice * 4;
                     playerMoney[propertyOwner[property]] += totalOnDice * 4;
-                    Debug.Log("1 kluts");
+                    UnityEngine.Debug.Log("1 kluts");
 
                     if (playerMoney[currentPlayer] <= 0)
                     {
@@ -994,7 +1004,7 @@ public void communityChestCards()
                     }
                 }
             }
-            else 
+            else
             {
                 payTotal = payForCommonProperty(property);
 
@@ -1014,20 +1024,20 @@ public void communityChestCards()
             {
                 checkBankrupt();
             }
-            
+
             updateMoney();
         }
     }
 
-    public int payForCommonProperty(int property) 
+    public int payForCommonProperty(int property)
     {
         int price = 0;
         int rentPos = 30;
         int ownerNo = propertyOwner[property];
 
         if (property == 0)
-        { 
-            rentPos= 0;
+        {
+            rentPos = 0;
         }
         if (property == 1)
         {
@@ -1191,7 +1201,7 @@ public void communityChestCards()
     }
 
     public void hidePayMenu()
-    { 
+    {
         payMenu.SetActive(false);
     }
 
@@ -1199,7 +1209,7 @@ public void communityChestCards()
     {
         if (playerMoney[currentPlayer] <= 0)
         {
-            Debug.Log("Bankrupted player: " + currentPlayer);
+            UnityEngine.Debug.Log("Bankrupted player: " + currentPlayer);
             bankRuptPlayers[currentPlayer] = true;
             if (currentPlayer == 0)
             {
@@ -1250,20 +1260,20 @@ public void communityChestCards()
     }
     public void changePropertyMarker(int property, int newOwner)
     {
-        Debug.Log("Changed owner");
+        UnityEngine.Debug.Log("Changed owner");
         propertyMarkers[property].SetActive(true);
         propertyMarkersSprites[property].sprite = propertyMarkersBaseSprites[newOwner];
     }
 
     public void disablePropertyMarker(int property)
     {
-        Debug.Log("Disabled property markers");
+        UnityEngine.Debug.Log("Disabled property markers");
         propertyMarkers[property].SetActive(false);
     }
 
     public void setPropertyMarker(int property)
     {
-        Debug.Log("Marked property: " + property);
+        UnityEngine.Debug.Log("Marked property: " + property);
         propertyMarkers[property].SetActive(true);
         propertyMarkersSprites[property].sprite = propertyMarkersBaseSprites[currentPlayer];
     }
@@ -1273,14 +1283,14 @@ public void communityChestCards()
         if (firstThrow == false)
         {
             startTradePanel.SetActive(true);
-            Debug.Log("Start trade");
+            UnityEngine.Debug.Log("Start trade");
             int ingevuld = 0;
             for (int i = 0; i < playerNames.Length; i++)
             {
                 if (i != currentPlayer)
                 {
                     if (ingevuld == 0)
-                    {   
+                    {
                         option1Text.text = playerNames[i];
                         tradeOption[0] = i;
                     }
@@ -1300,7 +1310,7 @@ public void communityChestCards()
         }
     }
 
-    public void stopTrade() 
+    public void stopTrade()
     {
         startTradePanel.SetActive(false);
     }
@@ -1322,7 +1332,7 @@ public void communityChestCards()
         tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
     }
 
-    public void option2() 
+    public void option2()
     {
         startTradePanel.SetActive(false);
         playerPickedForTrade = tradeOption[1];
@@ -1357,7 +1367,7 @@ public void communityChestCards()
     }
 
     public void noDeal()
-    { 
+    {
         startTradePanel.SetActive(true);
         tradePanel.SetActive(false);
     }
@@ -1366,13 +1376,13 @@ public void communityChestCards()
     {
         selectedTradeCard++;
         if (ownedCardId[selectedTradeCard] == 99)
-        { 
+        {
             selectedTradeCard = 0;
         }
         tradePropertyImage.sprite = propertyCards[ownedCardId[selectedTradeCard]];
     }
 
-    public void Deal() 
+    public void Deal()
     {
         playerMoney[currentPlayer] -= int.Parse(tradePrice.text);
         playerMoney[playerPickedForTrade] += int.Parse(tradePrice.text);
@@ -1384,6 +1394,317 @@ public void communityChestCards()
         tradePrice.text = "0";
     }
 
+    public void openBuildPanel()
+    {
+        if (firstThrow == false)
+        {
+            buildPanel.SetActive(true);
+            checkForMonopoly();
+            int cost = buildHousePrice();
+            buildPropertyCost.text = "Build price: " + cost.ToString();
+            buildPropertyImage.sprite = propertyCards[ownedCardId[0]];
+        }
+    }
 
+    public void checkForMonopoly()
+    {
+        int nr = 0;
+        if (propertyOwner[0] == currentPlayer && propertyOwner[1] == currentPlayer)
+        {
+            ownedCardId[nr] = 0;
+            nr++;
+            ownedCardId[nr] = 1;
+            nr++;
+        }
+        if (propertyOwner[3] == currentPlayer && propertyOwner[4] == currentPlayer && propertyOwner[5] == currentPlayer)
+        {
+            ownedCardId[nr] = 3;
+            nr++;
+            ownedCardId[nr] = 4;
+            nr++;
+            ownedCardId[nr] = 5;
+            nr++;
+        }
+        if (propertyOwner[6] == currentPlayer && propertyOwner[8] == currentPlayer && propertyOwner[9] == currentPlayer)
+        {
+            ownedCardId[nr] = 6;
+            nr++;
+            ownedCardId[nr] = 8;
+            nr++;
+            ownedCardId[nr] = 9;
+            nr++;
+        }
+        if (propertyOwner[11] == currentPlayer && propertyOwner[12] == currentPlayer && propertyOwner[13] == currentPlayer)
+        {
+            ownedCardId[nr] = 11;
+            nr++;
+            ownedCardId[nr] = 12;
+            nr++;
+            ownedCardId[nr] = 13;
+            nr++;
+        }
+        if (propertyOwner[14] == currentPlayer && propertyOwner[15] == currentPlayer && propertyOwner[16] == currentPlayer)
+        {
+            ownedCardId[nr] = 14;
+            nr++;
+            ownedCardId[nr] = 15;
+            nr++;
+            ownedCardId[nr] = 16;
+            nr++;
+        }
+        if (propertyOwner[18] == currentPlayer && propertyOwner[19] == currentPlayer && propertyOwner[21] == currentPlayer)
+        {
+            ownedCardId[nr] = 18;
+            nr++;
+            ownedCardId[nr] = 19;
+            nr++;
+            ownedCardId[nr] = 21;
+            nr++;
+        }
+        if (propertyOwner[22] == currentPlayer && propertyOwner[23] == currentPlayer && propertyOwner[24] == currentPlayer)
+        {
+            ownedCardId[nr] = 22;
+            nr++;
+            ownedCardId[nr] = 23;
+            nr++;
+            ownedCardId[nr] = 24;
+            nr++;
+        }
+        if (propertyOwner[26] == currentPlayer && propertyOwner[27] == currentPlayer)
+        {
+            ownedCardId[nr] = 26;
+            nr++;
+            ownedCardId[nr] = 27;
+            nr++;
+        }
+    }
+
+    public void closeBuildPanel()
+    {
+        buildPanel.SetActive(false);
+    }
+
+    public void nextCardInBuidMenu()
+    {
+        selectedTradeCard++;
+        if (ownedCardId[selectedTradeCard] == 99)
+        {
+            selectedTradeCard = 0;
+        }
+        buildPropertyImage.sprite = propertyCards[ownedCardId[selectedTradeCard]];
+        int cost = buildHousePrice();
+        buildPropertyCost.text = "Build price: " + cost.ToString();
+    }
+
+    public int buildHousePrice()
+    {
+        int property = ownedCardId[selectedTradeCard];
+        int buildPos = 30;
+        if (property == 0)
+        {
+            buildPos = 0;
+        }
+        if (property == 1)
+        {
+            buildPos = 1;
+        }
+        if (property == 3)
+        {
+            buildPos = 2;
+        }
+        if (property == 4)
+        {
+            buildPos = 3;
+        }
+        if (property == 5)
+        {
+            buildPos = 4;
+        }
+        if (property == 6)
+        {
+            buildPos = 5;
+        }
+        if (property == 8)
+        {
+            buildPos = 6;
+        }
+        if (property == 9)
+        {
+            buildPos = 7;
+        }
+        if (property == 11)
+        {
+            buildPos = 8;
+        }
+        if (property == 12)
+        {
+            buildPos = 9;
+        }
+        if (property == 13)
+        {
+            buildPos = 10;
+        }
+        if (property == 14)
+        {
+            buildPos = 11;
+        }
+        if (property == 15)
+        {
+            buildPos = 12;
+        }
+        if (property == 16)
+        {
+            buildPos = 13;
+        }
+        if (property == 18)
+        {
+            buildPos = 14;
+        }
+        if (property == 19)
+        {
+            buildPos = 15;
+        }
+        if (property == 21)
+        {
+            buildPos = 16;
+        }
+        if (property == 22)
+        {
+            buildPos = 17;
+        }
+        if (property == 23)
+        {
+            buildPos = 18;
+        }
+        if (property == 24)
+        {
+            buildPos = 19;
+        }
+        if (property == 26)
+        {
+            buildPos = 20;
+        }
+        if (property == 27)
+        {
+            buildPos = 21;
+        }
+
+        buildingOnProperty = buildPos;
+        return buildCost[buildPos] + (buildLevel[buildPos] * 30);
+    }
+
+    public void buidHouse()
+    {
+        if (buildLevel[buildingOnProperty] <= 4)
+        {
+            int cost = buildHousePrice();
+            playerMoney[currentPlayer] -= cost;
+            updateMoney();
+            buildLevel[buildingOnProperty] += 1;
+            showHouseBuild();
+            cost = buildHousePrice();
+            buildPropertyCost.text = "Build price: " + cost.ToString();
+        }
+        
+        if (buildLevel[buildingOnProperty] == 5)
+        {
+            buildPropertyCost.text = "Fully build";
+        }
+    }
+
+    public void showHouseBuild()
+    {
+        int houseToShow = buildLevel[buildingOnProperty] - 1;
+        int skip = buildingOnProperty * 5;
+        if (buildingOnProperty == 0)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 1)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 2)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 3)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 4)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 5)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 6)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 7)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 8)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 9)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 10)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 11)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 12)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 13)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 14)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 15)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 16)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 17)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 18)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 19)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 20)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+        if (buildingOnProperty == 21)
+        {
+            houses[houseToShow + skip].SetActive(true);
+        }
+
+    }
 }
 
