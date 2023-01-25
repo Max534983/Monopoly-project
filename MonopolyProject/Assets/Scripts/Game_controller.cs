@@ -116,6 +116,8 @@ public class Game_controller : MonoBehaviour
     int[] buildCost = new int[] { 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145 };
     int buildingOnProperty = 40;
 
+    public GameObject tradeError;
+
 
     void Start()
     {
@@ -1286,6 +1288,7 @@ public class Game_controller : MonoBehaviour
             startTradePanel.SetActive(true);
             UnityEngine.Debug.Log("Start trade");
             int ingevuld = 0;
+            int[] hasNoProperty = new int[] {10,10,10,10};
             for (int i = 0; i < playerNames.Length; i++)
             {
                 if (i != currentPlayer)
@@ -1314,10 +1317,12 @@ public class Game_controller : MonoBehaviour
     public void stopTrade()
     {
         startTradePanel.SetActive(false);
+        tradeError.SetActive(false);
     }
 
     public void option1()
     {
+        ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
         startTradePanel.SetActive(false);
         playerPickedForTrade = tradeOption[0];
         tradePanel.SetActive(true);
@@ -1330,11 +1335,23 @@ public class Game_controller : MonoBehaviour
                 nr++;
             }
         }
-        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+
+        if (ownedCardId[0] != 99)
+        {
+            tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+            tradeError.SetActive(false);
+        }
+        else 
+        {
+            startTradePanel.SetActive(true);
+            tradePanel.SetActive(false);
+            tradeError.SetActive(true);
+        }
     }
 
     public void option2()
     {
+        ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
         startTradePanel.SetActive(false);
         playerPickedForTrade = tradeOption[1];
         tradePanel.SetActive(true);
@@ -1347,11 +1364,23 @@ public class Game_controller : MonoBehaviour
                 nr++;
             }
         }
-        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+
+        if (ownedCardId[0] != 99)
+        {
+            tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+            tradeError.SetActive(false);
+        }
+        else
+        {
+            startTradePanel.SetActive(true);
+            tradePanel.SetActive(false);
+            tradeError.SetActive(true);
+        }
     }
 
     public void option3()
     {
+        ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
         startTradePanel.SetActive(false);
         playerPickedForTrade = tradeOption[2];
         tradePanel.SetActive(true);
@@ -1364,13 +1393,25 @@ public class Game_controller : MonoBehaviour
                 nr++;
             }
         }
-        tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+
+        if (ownedCardId[0] != 99)
+        {
+            tradePropertyImage.sprite = propertyCards[ownedCardId[0]];
+            tradeError.SetActive(false);
+        }
+        else
+        {
+            startTradePanel.SetActive(true);
+            tradePanel.SetActive(false);
+            tradeError.SetActive(true);
+        }
     }
 
     public void noDeal()
     {
         startTradePanel.SetActive(true);
         tradePanel.SetActive(false);
+        tradeError.SetActive(false);
     }
 
     public void nextCard()
