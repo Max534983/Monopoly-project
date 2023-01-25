@@ -5089,6 +5089,10 @@ MonoBehaviour:
   option3Text: {fileID: 1332738464}
   tradePropertyImage: {fileID: 1258924121}
   tradePrice: {fileID: 2097375510}
+  houses: []
+  buildPanel: {fileID: 0}
+  buildPropertyImage: {fileID: 0}
+  buildPropertyCost: {fileID: 0}
 --- !u!1 &854192518
 GameObject:
   m_ObjectHideFlags: 0
@@ -11660,7 +11664,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 3fd240af5d1758c48bc81bf8b78c24d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aba9f1ca5cf3a704e85bf5fe28cdb235, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
