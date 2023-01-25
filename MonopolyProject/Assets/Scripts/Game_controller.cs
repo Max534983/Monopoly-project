@@ -204,7 +204,6 @@ public class Game_controller : MonoBehaviour
         }
         UnityEngine.Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
-
     }
 
     public void switchPlayerUIColor()
@@ -446,6 +445,7 @@ public class Game_controller : MonoBehaviour
         if (playerCurrentTilePos[currentPlayer] >= 40)
         {
             playerCurrentTilePos[currentPlayer] = playerCurrentTilePos[currentPlayer] - 40;
+            playerMoney[currentPlayer] += 200;
         }
 
         if (playerCurrentTilePos[currentPlayer] <= 10)
@@ -926,6 +926,7 @@ public class Game_controller : MonoBehaviour
 
         propertyOwner[propertyNumber] = hasHighestBid;
         playerMoney[hasHighestBid] = playerMoney[hasHighestBid] - highestBid;
+        changePropertyMarker(propertyNumber, hasHighestBid);
         buyingProperty = false;
         buyMenu.SetActive(false);
         updateMoney();
@@ -1408,6 +1409,7 @@ public class Game_controller : MonoBehaviour
 
     public void checkForMonopoly()
     {
+        ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
         int nr = 0;
         if (propertyOwner[0] == currentPlayer && propertyOwner[1] == currentPlayer)
         {
@@ -1475,7 +1477,6 @@ public class Game_controller : MonoBehaviour
             ownedCardId[nr] = 26;
             nr++;
             ownedCardId[nr] = 27;
-            nr++;
         }
     }
 
