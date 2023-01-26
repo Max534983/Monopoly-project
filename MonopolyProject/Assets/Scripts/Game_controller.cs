@@ -41,7 +41,22 @@ public class Game_controller : MonoBehaviour
     public Text textLower_3;
     public Text textLower_4;
     public Text ErrorBox;
-
+    public GameObject BoxRed1;
+    public GameObject BoxGreen1;
+    public GameObject BoxYellow1;
+    public GameObject BoxBlue1;
+    public GameObject BoxRed2;
+    public GameObject BoxGreen2;
+    public GameObject BoxYellow2;
+    public GameObject BoxBlue2;
+    public GameObject BoxRed3;
+    public GameObject BoxGreen3;
+    public GameObject BoxYellow3;
+    public GameObject BoxBlue3;
+    public GameObject BoxRed4;
+    public GameObject BoxGreen4;
+    public GameObject BoxYellow4;
+    public GameObject BoxBlue4;
     public Animator dice1_animation;
     public Animator dice2_animation;
 
@@ -372,6 +387,7 @@ public class Game_controller : MonoBehaviour
             newPlayerLineup[i] = playerWithHighestThrow;
             playerNamesUpdate[i] = playerNames[playerWithHighestThrow];
             UnityEngine.Debug.Log(newPlayerLineup[i]);
+        
         }
 
         //verander de namen. laat de mensen die het hoogst gooien op volgorde gaan.
@@ -385,6 +401,81 @@ public class Game_controller : MonoBehaviour
         {
             propertyMarkersBaseSprites[i] = newMarkerSpriteLineUp[playerLineUp[i]];
         }
+        //Box 1
+        if (playerLineUp[0]==0){
+                BoxRed1.SetActive(false);
+                BoxRed1.SetActive(true);
+            }
+            if (playerLineUp[0]==1){
+                BoxRed1.SetActive(false);
+                BoxGreen1.SetActive(true);
+            }
+            if (playerLineUp[0]==2){
+                BoxRed1.SetActive(false);
+                BoxYellow1.SetActive(true);
+            }
+            if (playerLineUp[0]==3){
+                BoxRed1.SetActive(false);
+                BoxBlue1.SetActive(true);
+            }
+
+            //Box 2
+
+            if (playerLineUp[1]==0){
+                BoxGreen2.SetActive(false);
+                BoxRed2.SetActive(true);
+            }
+            if (playerLineUp[1]==1){
+                BoxGreen2.SetActive(false);
+                BoxGreen2.SetActive(true);
+            }
+            if (playerLineUp[1]==2){
+                BoxGreen2.SetActive(false);
+                BoxYellow2.SetActive(true);
+            }
+            if (playerLineUp[1]==3){
+                BoxGreen2.SetActive(false);
+                BoxBlue2.SetActive(true);
+            }
+
+            //Box 3
+
+            if (playerLineUp[2]==0){
+                BoxYellow3.SetActive(false);
+                BoxRed3.SetActive(true);
+            }
+            if (playerLineUp[2]==1){
+                BoxYellow3.SetActive(false);
+                BoxGreen3.SetActive(true);
+            }
+            if (playerLineUp[2]==2){
+                BoxYellow3.SetActive(false);
+                BoxYellow3.SetActive(true);
+            }
+            if (playerLineUp[2]==3){
+                BoxYellow3.SetActive(false);
+                BoxBlue3.SetActive(true);
+            }
+
+            //Box 4
+
+            if (playerLineUp[3]==0){
+                BoxBlue4.SetActive(false);
+                BoxRed4.SetActive(true);
+            }
+            if (playerLineUp[3]==1){
+                BoxBlue4.SetActive(false);
+                BoxGreen4.SetActive(true);
+            }
+            if (playerLineUp[3]==2){
+                BoxBlue4.SetActive(false);
+                BoxYellow4.SetActive(true);
+            }
+            if (playerLineUp[3]==3){
+                BoxBlue4.SetActive(false);
+                BoxBlue4.SetActive(true);
+            }
+            
 
         diceThrown = false;
         gameStartUi();
