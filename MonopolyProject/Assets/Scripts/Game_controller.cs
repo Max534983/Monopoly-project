@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class Game_controller : MonoBehaviour
 {
@@ -83,8 +84,6 @@ public class Game_controller : MonoBehaviour
     int highestBid = 0;
     int hasHighestBid = 10;
 
-    int turn = 0;
-
     public Text whoPaysWho;
     public Text payAmount;
     public GameObject payMenu;
@@ -104,20 +103,24 @@ public class Game_controller : MonoBehaviour
     int[] tradeOption = new int[] { 10, 10, 10 };
     int playerPickedForTrade = 10;
     int[] ownedCardId = new int[] { 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99 };
-    public UnityEngine.UI.Image tradePropertyImage;
+    public Image tradePropertyImage;
     int selectedTradeCard = 0;
     int boughtTradeCard = 99;
     public InputField tradePrice;
 
     public GameObject[] houses = new GameObject[] { };
     public GameObject buildPanel;
-    public UnityEngine.UI.Image buildPropertyImage;
+    public Image buildPropertyImage;
     public Text buildPropertyCost;
     int[] buildCost = new int[] { 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145 };
     int buildingOnProperty = 40;
 
     public GameObject tradeError;
 
+    public Sprite[] algemeenFondsKaarten = new Sprite[] { };
+    public Sprite[] kansKaarten = new Sprite[] { };
+    public Image cardShower;
+    public GameObject cardScreen;
 
     void Start()
     {
@@ -206,6 +209,7 @@ public class Game_controller : MonoBehaviour
         }
         UnityEngine.Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
+        cardScreen.SetActive(false);
     }
 
     public void switchPlayerUIColor()
@@ -484,56 +488,67 @@ public class Game_controller : MonoBehaviour
         if (randomChanceCard == 0)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 200;
+            cardShower.sprite = kansKaarten[0];
         }
 
         else if (randomChanceCard == 1)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
+            cardShower.sprite = kansKaarten[1];
         }
 
         else if (randomChanceCard == 2)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
+            cardShower.sprite = kansKaarten[2];
         }
 
         else if (randomChanceCard == 3)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
+            cardShower.sprite = kansKaarten[3];
         }
 
         else if (randomChanceCard == 4)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 50;
+            cardShower.sprite = kansKaarten[4];
         }
 
         else if (randomChanceCard == 5)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 25;
+            cardShower.sprite = kansKaarten[5];
         }
 
         else if (randomChanceCard == 6)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 150;
+            cardShower.sprite = kansKaarten[6];
         }
 
         else if (randomChanceCard == 7)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
+            cardShower.sprite = kansKaarten[7];
         }
 
         else if (randomChanceCard == 8)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
+            cardShower.sprite = kansKaarten[8];
         }
 
         else if (randomChanceCard == 9)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 150;
+            cardShower.sprite = kansKaarten[9];
         }
 
         else if (randomChanceCard == 10)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer];
+            cardShower.sprite = kansKaarten[10];
         }
 
         else if (randomChanceCard == 11)
@@ -560,27 +575,34 @@ public class Game_controller : MonoBehaviour
                 moving = true;
                 startPlayerMove(player_4);
             }
+            cardShower.sprite = kansKaarten[11];
         }
 
         else if (randomChanceCard == 12)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
+            cardShower.sprite = kansKaarten[12];
         }
 
         else if (randomChanceCard == 13)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
+            cardShower.sprite = kansKaarten[13];
         }
 
         else if (randomChanceCard == 14)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 100;
+            cardShower.sprite = kansKaarten[14];
         }
 
         else if (randomChanceCard == 15)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 200;
+            cardShower.sprite = kansKaarten[15];
         }
+        cardScreen.SetActive(true);
+        updateMoney();
     }
 
 
@@ -591,32 +613,37 @@ public class Game_controller : MonoBehaviour
         if (randomCommunityChestCard == 0)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
+            cardShower.sprite = algemeenFondsKaarten[0];
         }
 
         else if (randomCommunityChestCard == 1)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
+            cardShower.sprite = algemeenFondsKaarten[1];
         }
 
         else if (randomCommunityChestCard == 2)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 150;
-
+            cardShower.sprite = algemeenFondsKaarten[2];
         }
 
         else if (randomCommunityChestCard == 3)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 20;
+            cardShower.sprite = algemeenFondsKaarten[3];
         }
 
         else if (randomCommunityChestCard == 4)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 10;
+            cardShower.sprite = algemeenFondsKaarten[4];
         }
 
         else if (randomCommunityChestCard == 5)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
+            cardShower.sprite = algemeenFondsKaarten[5];
         }
 
         else if (randomCommunityChestCard == 6)
@@ -625,10 +652,11 @@ public class Game_controller : MonoBehaviour
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 40;
 
             //Subtract 10 off of every player, which leaves the current player with +10 of every player.
-            playerMoney[1] = playerMoney[1] - 10;
-            playerMoney[2] = playerMoney[2] - 10;
-            playerMoney[3] = playerMoney[3] - 10;
-            playerMoney[4] = playerMoney[4] - 10;
+            playerMoney[0] -= 10;
+            playerMoney[1] -= 10;
+            playerMoney[2] -= 10;
+            playerMoney[3] -= 10;
+            cardShower.sprite = algemeenFondsKaarten[6];
         }
 
         else if (randomCommunityChestCard == 7)
@@ -637,15 +665,17 @@ public class Game_controller : MonoBehaviour
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 200;
 
             //Subtract 50 off of every player, which leaves the current player with +50 of every player.
-            playerMoney[1] = playerMoney[1] - 50;
-            playerMoney[2] = playerMoney[2] - 50;
-            playerMoney[3] = playerMoney[3] - 50;
-            playerMoney[4] = playerMoney[4] - 50;
+            playerMoney[0] = 50;
+            playerMoney[1] = 50;
+            playerMoney[2] = 50;
+            playerMoney[3] = 50;
+            cardShower.sprite = algemeenFondsKaarten[7];
         }
 
         else if (randomCommunityChestCard == 8)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 10;
+            cardShower.sprite = algemeenFondsKaarten[8];
         }
 
         else if (randomCommunityChestCard == 9)
@@ -672,21 +702,25 @@ public class Game_controller : MonoBehaviour
                 moving = true;
                 startPlayerMove(player_4);
             }
+            cardShower.sprite = algemeenFondsKaarten[9];
         }
 
         else if (randomCommunityChestCard == 10)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 25;
+            cardShower.sprite = algemeenFondsKaarten[10];
         }
 
         else if (randomCommunityChestCard == 11)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 100;
+            cardShower.sprite = algemeenFondsKaarten[11];
         }
 
         else if (randomCommunityChestCard == 12)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 250;
+            cardShower.sprite = algemeenFondsKaarten[12];
         }
 
         else if (randomCommunityChestCard == 13)
@@ -713,18 +747,22 @@ public class Game_controller : MonoBehaviour
                 moving = true;
                 startPlayerMove(player_4);
             }
-
+            cardShower.sprite = algemeenFondsKaarten[13];
         }
 
         else if (randomCommunityChestCard == 14)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] + 50;
+            cardShower.sprite = algemeenFondsKaarten[14];
         }
 
         else if (randomCommunityChestCard == 15)
         {
             playerMoney[currentPlayer] = playerMoney[currentPlayer] - 50;
+            cardShower.sprite = algemeenFondsKaarten[15];
         }
+        cardScreen.SetActive(true);
+        updateMoney();
     }
 
     public void checkPosType(int pos)
@@ -734,6 +772,10 @@ public class Game_controller : MonoBehaviour
         if (pos == 1)
         {
             property = 0;
+        }
+        else if (pos == 2)
+        {
+            algemeenFondsCard();
         }
         else if (pos == 3)
         {
@@ -746,6 +788,10 @@ public class Game_controller : MonoBehaviour
         else if (pos == 6)
         {
             property = 3;
+        }
+        else if (pos == 7)
+        {
+            chanceCard();
         }
         else if (pos == 8)
         {
@@ -779,6 +825,10 @@ public class Game_controller : MonoBehaviour
         {
             property = 11;
         }
+        else if (pos == 17)
+        {
+            algemeenFondsCard();
+        }
         else if (pos == 18)
         {
             property = 12;
@@ -790,6 +840,10 @@ public class Game_controller : MonoBehaviour
         else if (pos == 21)
         {
             property = 14;
+        }
+        else if (pos == 22)
+        {
+            chanceCard();
         }
         else if (pos == 23)
         {
@@ -827,6 +881,10 @@ public class Game_controller : MonoBehaviour
         {
             property = 23;
         }
+        else if (pos == 33)
+        {
+            algemeenFondsCard();
+        }
         else if (pos == 34)
         {
             property = 24;
@@ -834,6 +892,10 @@ public class Game_controller : MonoBehaviour
         else if (pos == 35)
         {
             property = 25;
+        }
+        else if (pos == 36)
+        { 
+            chanceCard();
         }
         else if (pos == 37)
         {
@@ -1747,6 +1809,23 @@ public class Game_controller : MonoBehaviour
             houses[houseToShow + skip].SetActive(true);
         }
 
+    }
+
+    public void chanceCard()
+    {
+        UnityEngine.Debug.Log("Kans kaart");
+        chanceCards();
+    }
+
+    public void algemeenFondsCard()
+    {
+        UnityEngine.Debug.Log("algemeen fonds kaart");
+        communityChestCards();
+    }
+
+    public void closeCardScreen()
+    { 
+        cardScreen.SetActive(false);
     }
 }
 
