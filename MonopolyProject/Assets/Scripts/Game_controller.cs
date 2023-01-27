@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
@@ -137,6 +138,10 @@ public class Game_controller : MonoBehaviour
     public Image cardShower;
     public GameObject cardScreen;
 
+    string winnerName;
+    public GameObject winnerScreen;
+    public Text winnerScreenName;
+
     void Start()
     {
         fillPlayerNames();
@@ -222,9 +227,38 @@ public class Game_controller : MonoBehaviour
                 currentPlayer++;
             }
         }
+
+
+
+        checkForWinner();
         UnityEngine.Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
         cardScreen.SetActive(false);
+    }
+
+    public void checkForWinner()
+    {
+        int numberOfBankruptPlayers = 0;
+        for (int i = 0; i < bankRuptPlayers.Length; i++)
+        {
+            if (bankRuptPlayers[i] == true)
+            { 
+                numberOfBankruptPlayers++;
+            }
+        }
+
+        if (numberOfBankruptPlayers == 3) 
+        {
+            for (int i = 0; i < bankRuptPlayers.Length; i++)
+            {
+                if (bankRuptPlayers[i] == false)
+                {
+                    winnerName = playerNames[i];
+                }
+            }
+            winnerScreen.SetActive(true);
+            winnerScreenName.text = winnerName;
+        }
     }
 
     public void switchPlayerUIColor()
@@ -1917,6 +1951,11 @@ public class Game_controller : MonoBehaviour
     public void closeCardScreen()
     { 
         cardScreen.SetActive(false);
+    }
+
+    public void goToStart()
+    {
+        SceneManager.LoadScene(2);
     }
 }
 
