@@ -141,6 +141,7 @@ public class Game_controller : MonoBehaviour
     string winnerName;
     public GameObject winnerScreen;
     public Text winnerScreenName;
+    bool hasMonopoly = false;
 
     void Start()
     {
@@ -228,8 +229,8 @@ public class Game_controller : MonoBehaviour
             }
         }
 
-
-
+        ErrorBox.gameObject.SetActive(false);
+        hasMonopoly = false;
         checkForWinner();
         UnityEngine.Debug.Log("The current player should be: " + currentPlayer);
         switchPlayerUIColor();
@@ -1627,11 +1628,19 @@ public class Game_controller : MonoBehaviour
     {
         if (firstThrow == false)
         {
-            buildPanel.SetActive(true);
             checkForMonopoly();
-            int cost = buildHousePrice();
-            buildPropertyCost.text = "Build price: " + cost.ToString();
-            buildPropertyImage.sprite = propertyCards[ownedCardId[0]];
+            if (hasMonopoly == true)
+            {
+                buildPanel.SetActive(true);
+                int cost = buildHousePrice();
+                buildPropertyCost.text = "Build price: " + cost.ToString();
+                buildPropertyImage.sprite = propertyCards[ownedCardId[0]];
+            }
+            else
+            {
+                ErrorBox.gameObject.SetActive(true);
+                ErrorBox.text = "You need to own all cards of one color";
+            }
         }
     }
 
@@ -1641,6 +1650,7 @@ public class Game_controller : MonoBehaviour
         int nr = 0;
         if (propertyOwner[0] == currentPlayer && propertyOwner[1] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 0;
             nr++;
             ownedCardId[nr] = 1;
@@ -1648,6 +1658,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[3] == currentPlayer && propertyOwner[4] == currentPlayer && propertyOwner[5] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 3;
             nr++;
             ownedCardId[nr] = 4;
@@ -1657,6 +1668,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[6] == currentPlayer && propertyOwner[8] == currentPlayer && propertyOwner[9] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 6;
             nr++;
             ownedCardId[nr] = 8;
@@ -1666,6 +1678,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[11] == currentPlayer && propertyOwner[12] == currentPlayer && propertyOwner[13] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 11;
             nr++;
             ownedCardId[nr] = 12;
@@ -1675,6 +1688,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[14] == currentPlayer && propertyOwner[15] == currentPlayer && propertyOwner[16] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 14;
             nr++;
             ownedCardId[nr] = 15;
@@ -1684,6 +1698,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[18] == currentPlayer && propertyOwner[19] == currentPlayer && propertyOwner[21] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 18;
             nr++;
             ownedCardId[nr] = 19;
@@ -1693,6 +1708,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[22] == currentPlayer && propertyOwner[23] == currentPlayer && propertyOwner[24] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 22;
             nr++;
             ownedCardId[nr] = 23;
@@ -1702,6 +1718,7 @@ public class Game_controller : MonoBehaviour
         }
         if (propertyOwner[26] == currentPlayer && propertyOwner[27] == currentPlayer)
         {
+            hasMonopoly = true;
             ownedCardId[nr] = 26;
             nr++;
             ownedCardId[nr] = 27;
