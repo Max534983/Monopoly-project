@@ -7,6 +7,6 @@ public class SwitchStart : MonoBehaviour
 {
     public void BackButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 }

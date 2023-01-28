@@ -9,7 +9,7 @@ public GameObject PlayersNeededPopup;
 public void playerCount()
 {
 if (PlayerNames.Player1 != null && PlayerNames.Player2 != null && PlayerNames.Player3 != null && PlayerNames.Player4 != null){
-SceneManager.LoadScene(0);
+SceneManager.LoadScene(2);
 }
 else {
 PlayersNeededPopup.SetActive(true);
@@ -24,7 +24,7 @@ PlayersNeededPopup.SetActive(true);
         PlayerNames.Player2 = null;
         PlayerNames.Player3 = null;
         PlayerNames.Player4 = null;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 
 

@@ -1955,7 +1955,7 @@ public class Game_controller : MonoBehaviour
 
     public void goToStart()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
 }
 
